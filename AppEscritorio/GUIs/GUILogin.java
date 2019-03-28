@@ -14,6 +14,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalExclusionType;
 
 public class GUILogin extends JFrame {
 	private JTextField txtField_Usuario;
@@ -39,6 +42,7 @@ public class GUILogin extends JFrame {
 	 * Create the frame.
 	 */
 	public GUILogin() {
+		setResizable(false);
 		setTitle("Ingresar");
 		getContentPane().setBackground(Color.WHITE);
 		setBounds(100, 100, 510, 381);
@@ -57,12 +61,12 @@ public class GUILogin extends JFrame {
 		lbl_Ingresar.setBounds(244, 22, 145, 67);
 		getContentPane().add(lbl_Ingresar);
 		
-		JLabel lbl_Usuario = new JLabel("USUARIO");
+		JLabel lbl_Usuario = new JLabel("Usuario");
 		lbl_Usuario.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		lbl_Usuario.setBounds(233, 127, 76, 35);
 		getContentPane().add(lbl_Usuario);
 		
-		JLabel lbl_Contrasena = new JLabel("CONTRASE\u00D1A");
+		JLabel lbl_Contrasena = new JLabel("Contrase\u00F1a");
 		lbl_Contrasena.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		lbl_Contrasena.setBounds(195, 188, 114, 35);
 		getContentPane().add(lbl_Contrasena);
@@ -79,6 +83,10 @@ public class GUILogin extends JFrame {
 		getContentPane().add(passField_Contrasena);
 		
 		JButton btn_Aceptar = new JButton("Aceptar");
+		btn_Aceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btn_Aceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_Aceptar.setBorder(null);
 		btn_Aceptar.setOpaque(false);
