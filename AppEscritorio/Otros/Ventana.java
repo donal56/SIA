@@ -43,5 +43,6 @@ public abstract class Ventana extends JFrame
 		crear();
 		this.setVisible(true);
 	}
+	
 	public abstract void crear();
 }

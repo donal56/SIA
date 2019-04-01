@@ -1,7 +1,5 @@
 package GUIs;
-
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -12,11 +10,9 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
-import javax.swing.border.EmptyBorder;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Dialog.ModalExclusionType;
 
 public class GUILogin extends JFrame {
 	private JTextField txtField_Usuario;

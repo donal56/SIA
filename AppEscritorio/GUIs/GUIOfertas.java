@@ -1,5 +1,6 @@
 package GUIs;
 
-public class GUIOfertas {
+public class GUIOfertas 
+{
 
 }
