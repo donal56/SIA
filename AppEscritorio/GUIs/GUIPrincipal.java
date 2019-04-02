@@ -40,6 +40,7 @@ public class GUIPrincipal extends Ventana
 	GUIVuelos     guiVuelos    ;
 	GUIRutas      guiRutas     ;
 	GUIDocumentos guiDocumentos;
+	GUIOfertas    guiOfertas   ;
 	
 	static int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width ;
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -66,6 +67,7 @@ public class GUIPrincipal extends Ventana
 		guiVuelos    =new GUIVuelos ();
 		guiRutas     =new GUIRutas  ();
 		guiDocumentos=new GUIDocumentos();
+		guiOfertas   =new GUIOfertas();
 		
 		
 		//Inicializamos los panel
@@ -211,6 +213,17 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
 				pnlCentro.add(guiRutas.crear());
+				pnlCentro.revalidate();
+			}
+		});
+		//Boton Ofertas
+		botones[1][2].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiOfertas.crear());
 				pnlCentro.revalidate();
 			}
 		});
