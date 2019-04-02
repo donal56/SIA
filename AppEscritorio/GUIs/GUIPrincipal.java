@@ -195,7 +195,7 @@ public class GUIPrincipal extends Ventana
 			}
 		});
 		//Boton Documentos
-		botones[1][1].addActionListener(new ActionListener() 
+		/*botones[1][1].addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -204,7 +204,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.add(guiDocumentos.crear());
 				pnlCentro.revalidate();
 			}
-		});
+		});*/
 		//Boton Rutas
 		botones[0][4].addActionListener(new ActionListener() 
 		{

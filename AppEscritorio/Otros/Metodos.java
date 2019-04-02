@@ -1,8 +1,12 @@
 package Otros;
 
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 public  class Metodos 
 {
 	public  JPanel pnlGral = new JPanel();
@@ -45,4 +49,21 @@ public  class Metodos
 		return pnlGral;
 	}
 	
+	public void llenarTabla (JTable tabla, String call) {
+		Conexion con = new Conexion();
+		DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
+		try {
+			ResultSet resultados = con.obtenerDatos(call);
+			int numColumnas = resultados.getMetaData().getColumnCount();
+			Object[] fila = new Object[numColumnas];
+			while (resultados.next()) {
+				for (int i = 1; i <= numColumnas; i++) 
+	                fila[i - 1] = resultados.getString(i);
+				modeloTabla.addRow(fila);
+			}
+			con.cerrarConexion();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
 }
