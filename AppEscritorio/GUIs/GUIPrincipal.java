@@ -177,6 +177,7 @@ public class GUIPrincipal extends Ventana
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
 				pnlCentro.add(guiVuelos.crear());
@@ -188,9 +189,10 @@ public class GUIPrincipal extends Ventana
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiAviones.crear());
+				pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
 				pnlCentro.revalidate();
 			}
 		});
@@ -210,6 +212,7 @@ public class GUIPrincipal extends Ventana
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
 				pnlCentro.add(guiRutas.crear());
@@ -221,6 +224,7 @@ public class GUIPrincipal extends Ventana
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
 				pnlCentro.add(guiOfertas.crear());

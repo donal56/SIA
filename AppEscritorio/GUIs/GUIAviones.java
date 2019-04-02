@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BoxLayout;
@@ -10,8 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
 
 import Otros.Metodos;
 
@@ -25,11 +30,12 @@ public class GUIAviones
 	JButton   b         ,
 	          btnBuscar ;
 	Metodos   metodos   ;
-	JButton   c         ;
+	JTable      tabla   ;
+	JScrollPane spTabla ;
 	JLabel    lblTitulo ;
 	
 
-	public JPanel crear() 
+	public JPanel crear(Dimension pSize) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -37,8 +43,34 @@ public class GUIAviones
 		pnlFiltro =new JPanel   ();
 		pnlTitulo =new JPanel   ();
 		lblTitulo =new JLabel   ();
-		c         =new JButton  ("Aqui va la tabla");
 		btnBuscar =new JButton  ("Buscar");
+		
+		//Tabla
+		tabla  =new  JTable();
+		spTabla=new JScrollPane();
+		
+		tabla.setModel(new DefaultTableModel(
+				new Object[][]
+						{},
+				new String[]
+					{
+						"ID","Modelo","Capacidad"
+					}
+				));
+		
+		tabla.setModel(new DefaultTableModel(
+				new Object[][]
+						{},
+				new String[]
+					{
+						"ID","Modelo","Capacidad"
+					}
+				));
+		
+		//Conexion 
+		metodos.llenarTabla(tabla, "CALL sp_ConsultarAviones(8,3,'',0);");
+		spTabla.setViewportView(tabla);
+		spTabla.revalidate();
 		
 		//Formato titulo
 		lblTitulo.setOpaque    (true)                                ;
@@ -91,14 +123,23 @@ public class GUIAviones
 		pnlTitulo.add(pnlFiltro,BorderLayout.CENTER);
 		
 		//Formato del panel general
+		pnlGeneral.setSize(pSize);
 		pnlGeneral.setLayout (new BorderLayout());
 		pnlGeneral.setVisible(true)              ;
 		pnlGeneral.setBackground(Color.WHITE)    ;
 		
+		tabla.setBackground(new Color(49,153,218));
+		tabla.setForeground(Color.white);
+		tabla.setBorder(null);
+		tabla.setEnabled(false);
+		tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12 ));
+		
+		spTabla.setBorder(null);
+		
 		//Se agregan los elementos al panel general
 		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
 		pnlGeneral.add(metodos.crearBotones(true,false,true),BorderLayout.EAST);
-		pnlGeneral.add(c,BorderLayout.CENTER)                                  ;
+		pnlGeneral.add(spTabla,BorderLayout.CENTER);
 
 		return pnlGeneral;
 	}

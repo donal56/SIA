@@ -12,8 +12,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import Otros.Metodos;
 
@@ -26,7 +29,8 @@ public class GUIRutas
 	JButton   b         ,
 	          btnBuscar ;
 	Metodos   metodos   ;
-	JButton   c         ;
+	JTable      tabla   ;
+	JScrollPane spTabla ;
 	JLabel    lblTitulo ;
 	
 
@@ -38,8 +42,35 @@ public class GUIRutas
 		pnlFiltro =new JPanel   ();
 		pnlTitulo =new JPanel   ();
 		lblTitulo =new JLabel   ();
-		c         =new JButton  ("Aqui va la tabla");
 		btnBuscar =new JButton  ("Buscar");
+		
+		
+		//Tabla
+		tabla  =new  JTable();
+		spTabla=new JScrollPane();
+		
+		tabla.setModel(new DefaultTableModel(
+				new Object[][]
+						{},
+				new String[]
+					{
+						"ID","Modelo","Capacidad"
+					}
+				));
+		
+		tabla.setModel(new DefaultTableModel(
+				new Object[][]
+						{},
+				new String[]
+					{
+						"ID","Modelo","Capacidad"
+					}
+				));
+				
+		//Conexion 
+		metodos.llenarTabla(tabla, "CALL sp_ConsultarRutas (8,0,'','',0)");
+		spTabla.setViewportView(tabla);
+		spTabla.revalidate();
 		
 		//Formato titulo
 		lblTitulo.setOpaque    (true)                                ;
@@ -107,7 +138,7 @@ public class GUIRutas
 		//Se agregan los elementos al panel general
 		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
 		pnlGeneral.add(metodos.crearBotones(true,false,true),BorderLayout.EAST) ;
-		pnlGeneral.add(c,BorderLayout.CENTER)                                  ;
+		pnlGeneral.add(spTabla,BorderLayout.CENTER)                                  ;
 
 		return pnlGeneral;
 	}

@@ -32,7 +32,7 @@ public class Conexion {
         //Pasamos los parametros a la conexion
         try {
         	conexion = DriverManager.getConnection(sentencia, usuario, clave);
-        	System.out.println("Exito en la conexion");
+        	//System.out.println("Exito en la conexion");
         } catch (SQLException ex) {
         	ex.printStackTrace();
         }
