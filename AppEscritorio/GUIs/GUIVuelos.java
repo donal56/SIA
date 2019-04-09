@@ -5,6 +5,8 @@ import java.awt.Color            ;
 import java.awt.Container        ;
 import java.awt.Cursor           ;
 import java.awt.Font             ;
+import java.awt.Frame;
+
 import javax.swing.BorderFactory ;
 import javax.swing.BoxLayout     ;
 import javax.swing.ImageIcon     ;
@@ -33,7 +35,7 @@ public class GUIVuelos
 	JLabel    lblTitulo ;
 	
 
-	public JPanel crear() 
+	public JPanel crear(Frame padre) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -121,12 +123,11 @@ public class GUIVuelos
 		pnlGeneral.setVisible(true)              ;
 		pnlGeneral.setBackground(Color.WHITE)    ;
 
-		
 		pnlGeneral.setBorder(BorderFactory.createLoweredBevelBorder());
 		
 		//Se agregan los elementos al panel general
 		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
-		pnlGeneral.add(metodos.crearBotones(true,true,true),BorderLayout.EAST) ;
+		pnlGeneral.add(metodos.crearBotones(true,true,true,1,padre),BorderLayout.EAST) ;
 		pnlGeneral.add(spTabla,BorderLayout.CENTER)                                  ;
 
 		return pnlGeneral;

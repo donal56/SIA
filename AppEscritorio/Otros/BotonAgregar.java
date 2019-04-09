@@ -2,6 +2,8 @@ package Otros;
 
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -27,5 +29,10 @@ public class BotonAgregar extends JButton
 		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
 		boton.setSize(100,100);
 		return boton;
+	}
+	
+	@Override
+	public void addActionListener(ActionListener pAction) {
+		boton.addActionListener(pAction);
 	}
 }

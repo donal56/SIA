@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -35,7 +36,7 @@ public class GUIAviones
 	JLabel    lblTitulo ;
 	
 
-	public JPanel crear(Dimension pSize) 
+	public JPanel crear(Frame padre, Dimension pSize) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -138,7 +139,7 @@ public class GUIAviones
 		
 		//Se agregan los elementos al panel general
 		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
-		pnlGeneral.add(metodos.crearBotones(true,false,true),BorderLayout.EAST);
+		pnlGeneral.add(metodos.crearBotones(true,false,true,4,padre),BorderLayout.EAST);
 		pnlGeneral.add(spTabla,BorderLayout.CENTER);
 
 		return pnlGeneral;
