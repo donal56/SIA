@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,15 +17,17 @@ import GUIs.*;
 public  class Metodos 
 {
 	public  JPanel pnlGral = new JPanel();
-	private BotonAgregar    btnAgregar   ;
-	private BotonEliminar   btnEliminar  ;
-	private BotonActualizar btnActualizar;
+	public BotonAgregar    btnAgregar   ;
+	public BotonEliminar   btnEliminar  ;
+	public BotonActualizar btnActualizar;
+	
 	
 	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar,int tipo,Frame padre)
 	{
 		btnAgregar   =new BotonAgregar    ();
 		btnEliminar  =new BotonEliminar   ();
 		btnActualizar=new BotonActualizar ();
+		
 		
 		//Condiciones para los botones
 		if (pBtnAgregar==false)
@@ -55,7 +57,19 @@ public  class Metodos
 			pnlGral.add(btnActualizar.crear  ());
 		}
 		pnlGral.setBackground(Color.white)  ;
+		
+		btnAgregar.setBoton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("btnActualizar");
+			}
+		});
+		
+		
 		return pnlGral;
+		
 	}
 	
 	public void listenerBtnAgregar(int tipo, Frame padre) {
@@ -117,4 +131,6 @@ public  class Metodos
 			ex.printStackTrace();
 		}
 	}
+	
+	
 }

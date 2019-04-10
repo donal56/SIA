@@ -1,4 +1,5 @@
 package GUIs;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -6,7 +7,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,9 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
-
 import Otros.Metodos;
+import net.miginfocom.swing.MigLayout;
 
 public class GUIAviones 
 {
@@ -27,13 +26,15 @@ public class GUIAviones
 	Container contenedor;
 	JPanel    pnlGeneral,
 	          pnlFiltro ,
-	          pnlTitulo ;
+	          pnlTitulo ,
+	          pnlBotones;
 	JButton   b         ,
 	          btnBuscar ;
 	Metodos   metodos   ;
-	JTable      tabla   ;
-	JScrollPane spTabla ;
-	JLabel    lblTitulo ;
+	JTable    tabla     ;
+	JScrollPane spTabla;
+	JLabel    lblTitulo ,
+			  lblimg    ;
 	
 
 	public JPanel crear(Frame padre, Dimension pSize) 
@@ -43,21 +44,14 @@ public class GUIAviones
 		pnlGeneral=new JPanel   ();
 		pnlFiltro =new JPanel   ();
 		pnlTitulo =new JPanel   ();
-		lblTitulo =new JLabel   ();
-		btnBuscar =new JButton  ("Buscar");
+		lblTitulo =new JLabel   ("Aviones",SwingConstants.LEFT);
+		btnBuscar =new JButton  ();
+		lblimg    =new JLabel   ();
+		pnlBotones=new JPanel   ();
 		
 		//Tabla
-		tabla  =new  JTable();
-		spTabla=new JScrollPane();
-		
-		tabla.setModel(new DefaultTableModel(
-				new Object[][]
-						{},
-				new String[]
-					{
-						"ID","Modelo","Capacidad"
-					}
-				));
+		tabla  =new  JTable     ();
+		spTabla=new  JScrollPane();
 		
 		tabla.setModel(new DefaultTableModel(
 				new Object[][]
@@ -70,45 +64,52 @@ public class GUIAviones
 		
 		//Conexion 
 		metodos.llenarTabla(tabla, "CALL sp_ConsultarAviones(8,3,'',0);");
-		spTabla.setViewportView(tabla);
-		spTabla.revalidate();
+		//metodos.llenarTabla(tabla, "Select * from aviones;");
+		spTabla.setViewportView (tabla                   );
+		spTabla.setPreferredSize(new Dimension(1000, 400));
 		
 		//Formato titulo
 		lblTitulo.setOpaque    (true)                                ;
-		lblTitulo.setText      ("Aviones")                           ;
 		lblTitulo.setBackground(Color.WHITE)                         ;
 		lblTitulo.setFont      (new Font("Segoe UI", Font.PLAIN, 80));
 		lblTitulo.setForeground(new Color(0,88,143))                 ;
+		lblimg.setIcon(new ImageIcon(GUIPrincipal.class.getResource("/img/icnAvion.png")));
 		
 		//Elementos en el panel filtro
-		pnlFiltro.setLayout(new BoxLayout(pnlFiltro,BoxLayout.X_AXIS));
-		pnlTitulo.setLayout(new BorderLayout()                       );
+		pnlFiltro.setLayout(new MigLayout());
+		//pnlTitulo.setLayout(new BorderLayout()                       );
 		
 		
 		//Elementos del filtrado
-		JLabel lblID        = new JLabel("ID   "      );
-		JLabel lblModelo    = new JLabel("Modelo  "   );
-		JLabel lblCapacidad = new JLabel("Capacidad  ");
-		JTextField txtID    = new JTextField("");
-		JTextField txtMod   = new JTextField("");
-		JTextField txtCap   = new JTextField("");
+		JLabel lblID        = new JLabel("ID"       );
+		JLabel lblModelo    = new JLabel("Modelo"   );
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		JTextField txtID    = new JTextField("",20);
+		JTextField txtMod   = new JTextField("",20);
+		JTextField txtCap   = new JTextField("",20);
+		
 		
 		//Formato de los label
-		lblID       .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
-		lblModelo   .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
-		lblCapacidad.setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblID       .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		lblModelo   .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		lblCapacidad.setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		
+		//Se le quita el border a los text Field
+		txtID .setBorder(null);
+		txtMod.setBorder(null);
+		txtCap.setBorder(null);
+		
+
+		//Formato de la tabla
+		tabla.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		//Boton buscar
 		btnBuscar.setBorder                (null )     ;
-		btnBuscar.setOpaque                (false)     ;
-		btnBuscar.setContentAreaFilled     (false)     ;
 		btnBuscar.setSelectedIcon          (null)      ;
-		btnBuscar.setHorizontalTextPosition(SwingConstants.CENTER)                         ;
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
-		btnBuscar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
-			
+		//btnBuscar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
+		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
+		
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );
 		pnlFiltro.add(txtID       );
@@ -117,30 +118,29 @@ public class GUIAviones
 		pnlFiltro.add(lblCapacidad);
 		pnlFiltro.add(txtCap      );
 		pnlFiltro.add(btnBuscar   );
-		pnlFiltro.setBackground(Color.WHITE);
+		pnlFiltro.setBackground(new Color(80,200,243));
 		
 		//Agregamos al panel titulo el label del tituolo y los filtros
 		pnlTitulo.add(lblTitulo,BorderLayout.NORTH );
 		pnlTitulo.add(pnlFiltro,BorderLayout.CENTER);
 		
 		//Formato del panel general
-		pnlGeneral.setSize(pSize);
-		pnlGeneral.setLayout (new BorderLayout());
+		pnlGeneral.setLayout(new MigLayout("","[grow]","[]"));
 		pnlGeneral.setVisible(true)              ;
 		pnlGeneral.setBackground(Color.WHITE)    ;
 		
-		tabla.setBackground(new Color(49,153,218));
-		tabla.setForeground(Color.white);
-		tabla.setBorder(null);
-		tabla.setEnabled(false);
-		tabla.setFont(new Font("Segoe UI", Font.PLAIN, 12 ));
-		
+		tabla.setBackground  (Color.WHITE);
+		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
-		
-		//Se agregan los elementos al panel general
-		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
-		pnlGeneral.add(metodos.crearBotones(true,false,true,4,padre),BorderLayout.EAST);
-		pnlGeneral.add(spTabla,BorderLayout.CENTER);
+		tabla.setBorder(null);
+		pnlBotones=metodos.crearBotones(true, false, true);
+
+		pnlGeneral.add(lblTitulo ,"split 2, left"       );
+		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
+		pnlGeneral.add(pnlFiltro ,"center, wrap"        );
+		pnlGeneral.add(spTabla   ,"split 2, center,wrap");
+		pnlGeneral.add(pnlBotones,"split 2,center"      );
+
 
 		return pnlGeneral;
 	}

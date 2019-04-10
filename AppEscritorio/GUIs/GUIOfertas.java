@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,20 +20,22 @@ import javax.swing.table.DefaultTableModel;
 
 import Otros.Conexion;
 import Otros.Metodos;
+import net.miginfocom.swing.MigLayout;
 
 public class GUIOfertas 
 {
 	Container contenedor;
 	JPanel    pnlGeneral,
 	          pnlFiltro ,
-	          pnlTitulo ;
+	          pnlTitulo ,
+	          pnlBotones;
 	JButton   b         ,
 	          btnBuscar ;
 	Metodos   metodos   ;
-	JTable      tabla   ;
+	JTable    tabla     ;
 	JScrollPane spTabla ;
-	JLabel    lblTitulo ;
-	Conexion  conectar;
+	JLabel    lblTitulo ,
+			  lblimg    ;
 	
 
 	public JPanel crear(Frame padre) 
@@ -43,71 +45,68 @@ public class GUIOfertas
 		pnlGeneral=new JPanel   ();
 		pnlFiltro =new JPanel   ();
 		pnlTitulo =new JPanel   ();
-		lblTitulo =new JLabel   ();
-		btnBuscar =new JButton  ("Buscar");
+		lblTitulo =new JLabel   ("Ofertas",SwingConstants.CENTER);
+		btnBuscar =new JButton  ();
+		lblimg    =new JLabel   ();
+		pnlBotones=new JPanel   ();
 		
 		//Tabla
-				tabla  =new  JTable();
-				spTabla=new JScrollPane();
+		tabla  =new  JTable();
+		spTabla=new JScrollPane();
 				
-				tabla.setModel(new DefaultTableModel(
-						new Object[][]
-								{},
-						new String[]
-							{
-								"ID","Modelo","Capacidad"
-							}
-						));
+		tabla.setModel(new DefaultTableModel(
+				new Object[][]
+						{},
+				new String[]
+					{
+						"ID","Modelo","Capacidad"
+					}
+				));
 				
-				tabla.setModel(new DefaultTableModel(
-						new Object[][]
-								{},
-						new String[]
-							{
-								"ID","Inicio","Fin"
-							}
-						));
-				
-				//Conexion 
-				metodos.llenarTabla(tabla, "CALL sp_ConsultarOfertas(8,0,'0000-00-00','0000-00-00',0);");
-				spTabla.setViewportView(tabla);
-				spTabla.revalidate();
+		//Conexion 
+		metodos.llenarTabla(tabla, "CALL sp_ConsultarOfertas(8,0,'0000-00-00','0000-00-00',0);");
+		spTabla.setViewportView(tabla);
+		spTabla.setPreferredSize(new Dimension(1000,400));
 		
 		//Formato titulo
 		lblTitulo.setOpaque    (true)                                ;
-		lblTitulo.setText      ("Ofertas")                           ;
 		lblTitulo.setBackground(Color.WHITE)                         ;
 		lblTitulo.setFont      (new Font("Segoe UI", Font.PLAIN, 80));
 		lblTitulo.setForeground(new Color(0,88,143))                 ;
+		lblimg.setIcon(new ImageIcon(GUIPrincipal.class.getResource("/img/icnOferta.png")));
 		
 		//Elementos en el panel filtro
-		pnlFiltro.setLayout(new BoxLayout(pnlFiltro,BoxLayout.X_AXIS));
-		pnlTitulo.setLayout(new BorderLayout()                       );
+		pnlFiltro.setLayout(new MigLayout());
+		//pnlTitulo.setLayout(new BorderLayout()                       );
 		
 		
 		//Elementos del filtrado
-		JLabel lblID        = new JLabel("ID   "   );
-		JLabel lblInicio    = new JLabel("Inicio  ");
-		JLabel lblFin       = new JLabel("Fin  "   );
-		JTextField txtID    = new JTextField(""    );
-		JTextField txtInicio= new JTextField(""    );
-		JTextField txtFin   = new JTextField(""    );
+		JLabel lblID        = new JLabel("ID "   );
+		JLabel lblInicio    = new JLabel("Inicio ");
+		JLabel lblFin       = new JLabel("Fin "   );
+		JTextField txtID    = new JTextField("",20);
+		JTextField txtInicio= new JTextField("",20);
+		JTextField txtFin   = new JTextField("",20);
 		
 		//Formato de los label
 		lblID    .setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		lblInicio.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-		lblFin.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblFin   .setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		
+		//Se le quita el border a los text Field
+		txtID     .setBorder(null);
+		txtInicio .setBorder(null);
+		txtFin    .setBorder(null);
+				
+		//Formato de la tabla
+		tabla.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		//Boton buscar
 		btnBuscar.setBorder                (null )     ;
 		btnBuscar.setOpaque                (false)     ;
-		btnBuscar.setContentAreaFilled     (false)     ;
 		btnBuscar.setSelectedIcon          (null)      ;
-		btnBuscar.setHorizontalTextPosition(SwingConstants.CENTER)                         ;
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
-		btnBuscar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
+		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
 			
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );
@@ -117,21 +116,28 @@ public class GUIOfertas
 		pnlFiltro.add(lblFin      );
 		pnlFiltro.add(txtFin      );
 		pnlFiltro.add(btnBuscar   );
-		pnlFiltro.setBackground(Color.WHITE);
+		pnlFiltro.setBackground((new Color(80,200,243)));
 		
 		//Agregamos al panel titulo el label del tituolo y los filtros
 		pnlTitulo.add(lblTitulo,BorderLayout.NORTH );
 		pnlTitulo.add(pnlFiltro,BorderLayout.CENTER);
 		
 		//Formato del panel general
-		pnlGeneral.setLayout (new BorderLayout());
+		pnlGeneral.setLayout(new MigLayout("","[grow]","[]"));
 		pnlGeneral.setVisible(true)              ;
 		pnlGeneral.setBackground(Color.WHITE)    ;
-		
-		//Se agregan los elementos al panel general
-		pnlGeneral.add(pnlTitulo,BorderLayout.NORTH)                           ;
-		pnlGeneral.add(metodos.crearBotones(true,true,true,8,padre),BorderLayout.EAST);
-		pnlGeneral.add(spTabla,BorderLayout.CENTER)                                  ;
+
+		tabla.setBackground  (Color.WHITE);
+		spTabla.setBackground(Color.WHITE);
+		spTabla.setBorder(null);
+		tabla.setBorder(null);
+		pnlBotones=metodos.crearBotones(true, true, true);
+			
+		pnlGeneral.add(lblTitulo, "split 2, left");
+		pnlGeneral.add(lblimg,"wrap, wrap");
+		pnlGeneral.add(pnlFiltro,"center, wrap");
+		pnlGeneral.add(spTabla  ,"split 2, center,wrap");
+		pnlGeneral.add(pnlBotones,"split 2,center");
 
 		return pnlGeneral;
 	}

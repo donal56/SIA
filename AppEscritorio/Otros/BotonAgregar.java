@@ -1,33 +1,34 @@
 package Otros;
 
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import GUIs.GUIPrincipal;
 public class BotonAgregar extends JButton
 {
 	JButton boton;
+	public JButton getBoton() {
+		return boton;
+	}
+
+	public void setBoton(ActionListener pAction) {
+		boton.addActionListener(pAction);
+	}
+
 	ImageIcon iconoBoton;
 
 	public JButton crear()
 	{
-		boton     =new JButton  ("Agregar")                                                   ;
-		iconoBoton=new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"));
+		boton     =new JButton  ()                                                   ;
 		
 		boton.setBorder                (null )     ;
 		boton.setOpaque                (false)     ;
 		boton.setContentAreaFilled     (false)     ;
-		boton.setSelectedIcon          (null)      ;
-		boton.setHorizontalTextPosition(SwingConstants.CENTER)                         ;
 		boton.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		boton.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
-		boton.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
-		boton.setSize(100,100);
+		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonAñadir.png")));
 		return boton;
 	}
 	

@@ -15,8 +15,7 @@ public class BotonEliminar extends JButton
 
 	public JButton crear()
 	{
-		boton     =new JButton  ("Eliminar")                                                   ;
-		iconoBoton=new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"));
+		boton     =new JButton  ()                                                   ;
 		
 		boton.setBorder                (null )     ;
 		boton.setOpaque                (false)     ;
@@ -25,10 +24,7 @@ public class BotonEliminar extends JButton
 		boton.setIcon                  (iconoBoton);
 		boton.setHorizontalTextPosition(SwingConstants.CENTER)                         ;
 		boton.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		boton.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
-		boton.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
-		boton.setSize(100,100);
+		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonEliminar.png"     )));
 		return boton;
 	}
 }

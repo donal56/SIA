@@ -8,7 +8,6 @@ import java.awt.GridLayout          ;
 import java.awt.Toolkit             ;
 import java.awt.event.ActionEvent   ;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon        ;
 import javax.swing.JButton          ;
 import javax.swing.JLabel           ;
@@ -98,16 +97,16 @@ public class GUIPrincipal extends Ventana
 		
 		
 		//Diseño del boton de regresar
-		btnRegresar  = new JButton           ("Regresar");
+		btnRegresar  = new JButton           ();
 		btnRegresar.setBorder                (null )     ;
 		btnRegresar.setOpaque                (false)     ;
 		btnRegresar.setContentAreaFilled     (false)     ;
 		btnRegresar.setSelectedIcon          (null)      ;
 		btnRegresar.setHorizontalTextPosition(SwingConstants.CENTER)                         ;
 		btnRegresar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRegresar.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
-		btnRegresar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		btnRegresar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar.png"     )));
+		//btnRegresar.setFont                  (new Font("Segoe UI", Font.PLAIN, 18          ));
+		//btnRegresar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
+		btnRegresar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonInicio.png"     )));
 		
 		
 		//Se inserta logo del encabezado y boton
