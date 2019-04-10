@@ -1,22 +1,22 @@
 package GUIs;
-import java.awt.BorderLayout			  ;
-import java.awt.Color					  ;
-import java.awt.Container				  ;
-import java.awt.Cursor                    ;
-import java.awt.Dimension                 ;
-import java.awt.Font                      ;
-import javax.swing.BoxLayout              ;
-import javax.swing.ImageIcon              ;
-import javax.swing.JButton                ;
-import javax.swing.JLabel                 ;
-import javax.swing.JPanel                 ;
-import javax.swing.JScrollPane            ;
-import javax.swing.JTable                 ;
-import javax.swing.JTextField             ;
-import javax.swing.SwingConstants         ;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
-
 import Otros.Metodos;
 import net.miginfocom.swing.MigLayout;
 
@@ -37,7 +37,7 @@ public class GUIAviones
 			  lblimg    ;
 	
 
-	public JPanel crear(Dimension pSize) 
+	public JPanel crear(Frame padre, Dimension pSize) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -135,12 +135,12 @@ public class GUIAviones
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, false, true);
 
-		
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
 		pnlGeneral.add(pnlFiltro ,"center, wrap"        );
 		pnlGeneral.add(spTabla   ,"split 2, center,wrap");
 		pnlGeneral.add(pnlBotones,"split 2,center"      );
+
 
 		return pnlGeneral;
 	}

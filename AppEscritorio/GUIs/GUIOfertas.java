@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,7 +38,7 @@ public class GUIOfertas
 			  lblimg    ;
 	
 
-	public JPanel crear() 
+	public JPanel crear(Frame padre) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -125,7 +126,7 @@ public class GUIOfertas
 		pnlGeneral.setLayout(new MigLayout("","[grow]","[]"));
 		pnlGeneral.setVisible(true)              ;
 		pnlGeneral.setBackground(Color.WHITE)    ;
-		
+
 		tabla.setBackground  (Color.WHITE);
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
@@ -137,6 +138,7 @@ public class GUIOfertas
 		pnlGeneral.add(pnlFiltro,"center, wrap");
 		pnlGeneral.add(spTabla  ,"split 2, center,wrap");
 		pnlGeneral.add(pnlBotones,"split 2,center");
+
 		return pnlGeneral;
 	}
 
