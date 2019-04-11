@@ -4,12 +4,19 @@ import java.awt.EventQueue;
 import java.awt.Frame;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 public class GUIOfertasAgregar extends JDialog {
 	private JTextField txtFld_ID;
@@ -17,54 +24,83 @@ public class GUIOfertasAgregar extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GUIOfertasAgregar(Frame padre, boolean modal) {
-		super(padre, modal);
+	public GUIOfertasAgregar() {
+		super(new JFrame(), true);
+		getContentPane().setBackground(new Color(255, 255, 255));
 		
 		setBounds(100, 100, 266, 293);
 		getContentPane().setLayout(null);
 		
 		JLabel lbl_ID = new JLabel("ID de oferta");
+		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		lbl_ID.setBounds(31, 30, 59, 14);
 		getContentPane().add(lbl_ID);
 		
 		txtFld_ID = new JTextField();
+		txtFld_ID.setBorder(new LineBorder(new Color(70, 130, 180)));
+		txtFld_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		txtFld_ID.setColumns(10);
 		txtFld_ID.setBounds(124, 27, 96, 20);
 		getContentPane().add(txtFld_ID);
 		
 		JLabel lbl_FechaInicio = new JLabel("Fecha de inicio");
+		lbl_FechaInicio.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		lbl_FechaInicio.setBounds(31, 75, 73, 14);
 		getContentPane().add(lbl_FechaInicio);
 		
 		JLabel lbl_FechaFin = new JLabel("Fecha de fin");
+		lbl_FechaFin.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		lbl_FechaFin.setBounds(31, 117, 73, 14);
 		getContentPane().add(lbl_FechaFin);
 		
 		JLabel lbl_Descuento = new JLabel("% de descuento");
+		lbl_Descuento.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		lbl_Descuento.setBounds(31, 155, 83, 14);
 		getContentPane().add(lbl_Descuento);
 		
-		JButton btn_Aceptar = new JButton("Aceptar");
-		btn_Aceptar.setBounds(31, 209, 89, 23);
-		getContentPane().add(btn_Aceptar);
-		
-		JButton btn_Cancelar = new JButton("Cancelar");
-		btn_Cancelar.setBounds(131, 209, 89, 23);
-		getContentPane().add(btn_Cancelar);
-		
 		JSpinner spnnr_Descuento = new JSpinner();
+		spnnr_Descuento.setBorder(new LineBorder(new Color(70, 130, 180)));
+		spnnr_Descuento.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		spnnr_Descuento.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		spnnr_Descuento.setBounds(124, 152, 96, 20);
 		getContentPane().add(spnnr_Descuento);
 		
 		JDateChooser dateChooser_Fin = new JDateChooser();
 		dateChooser_Fin.setBounds(124, 111, 96, 20);
+		dateChooser_Fin.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		dateChooser_Fin.setBorder(new LineBorder(new Color(70, 130, 180)));
 		getContentPane().add(dateChooser_Fin);
 		
 		JDateChooser dateChooser_Inicio = new JDateChooser();
 		dateChooser_Inicio.setBounds(124, 69, 96, 20);
+		dateChooser_Inicio.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		dateChooser_Inicio.setBorder(new LineBorder(new Color(70, 130, 180)));
 		getContentPane().add(dateChooser_Inicio);
 		
-		setLocationRelativeTo(padre);
+		JButton btn_Aceptar = new JButton("Aceptar");
+		btn_Aceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_Aceptar.setPressedIcon(new ImageIcon(GUIOfertasAgregar.class.getResource("/img/Boton_Pres.png")));
+		btn_Aceptar.setIcon(new ImageIcon(GUIOfertasAgregar.class.getResource("/img/Boton.png")));
+		btn_Aceptar.setOpaque(false);
+		btn_Aceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_Aceptar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		btn_Aceptar.setContentAreaFilled(false);
+		btn_Aceptar.setBorder(null);
+		btn_Aceptar.setBounds(31, 209, 89, 23);
+		getContentPane().add(btn_Aceptar);
+		
+		JButton btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_Cancelar.setPressedIcon(new ImageIcon(GUIOfertasAgregar.class.getResource("/img/Boton_Pres.png")));
+		btn_Cancelar.setIcon(new ImageIcon(GUIOfertasAgregar.class.getResource("/img/Boton.png")));
+		btn_Cancelar.setOpaque(false);
+		btn_Cancelar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_Cancelar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		btn_Cancelar.setContentAreaFilled(false);
+		btn_Cancelar.setBorder(null);
+		btn_Cancelar.setBounds(131, 209, 89, 23);
+		getContentPane().add(btn_Cancelar);
+		
+		setLocationRelativeTo(null);
 	}
 }

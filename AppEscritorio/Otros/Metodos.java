@@ -21,8 +21,10 @@ public  class Metodos
 	public BotonEliminar   btnEliminar  ;
 	public BotonActualizar btnActualizar;
 	
-	
-	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar,int tipo,Frame padre)
+	/*Recibe un parametro int para indicar a los botones que ventana van a abrir (1 para Vuelos, 2 para reservas, 3 para Check In, etc)
+	 *y un frame que sera padre de los JDialog que estos botones van a abrir. Los JDialog son las ventanas de agregar. 
+	 */
+	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar,int tipo)
 	{
 		btnAgregar   =new BotonAgregar    ();
 		btnEliminar  =new BotonEliminar   ();
@@ -37,7 +39,7 @@ public  class Metodos
 		else
 		{	
 			pnlGral.add(btnAgregar .crear    ());
-			listenerBtnAgregar(tipo, padre);
+			listenerBtnAgregar(tipo); //Llamar al metodo que agrega el actionListener
 			//btnAgregar .crear    ()
 		}
 		if (pBtnEliminar==false)
@@ -58,38 +60,28 @@ public  class Metodos
 		}
 		pnlGral.setBackground(Color.white)  ;
 		
-		btnAgregar.setBoton(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("btnActualizar");
-			}
-		});
-		
-		
 		return pnlGral;
-		
 	}
 	
-	public void listenerBtnAgregar(int tipo, Frame padre) {
+	//Metodo para agregar el actionListener al boton Agregar segun el parametro dado
+	public void listenerBtnAgregar(int tipo) {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switch (tipo) {
 					case 1:
-						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar(padre, true);
+						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
 						guiVuelos.setVisible(true);
 						break;
 					case 4:
-						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(padre, true);
+						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
 						guiAviones.setVisible(true);
 						break;
 					case 5:
-						GUIRutasAgregar guiRutas = new GUIRutasAgregar(padre, true);
+						GUIRutasAgregar guiRutas = new GUIRutasAgregar();
 						guiRutas.setVisible(true);
 						break;
 					case 8:
-						GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar(padre, true);
+						GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar();
 						guiOfertas.setVisible(true);
 						break;
 				}
@@ -97,16 +89,17 @@ public  class Metodos
 		});
 	}
 	
+	//Metodo para agregar el actionListener al boton Actualizar segun el parametro dado (en construccion)
 	public void listenerBtnActualizar(int tipo, Frame padre) {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switch (tipo) {
 					case 1:
-						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar(padre, true);
+						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
 						guiVuelos.setVisible(true);
 						break;
 					case 4:
-						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(padre, true);
+						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
 						guiAviones.setVisible(true);
 						break;
 				}
@@ -114,6 +107,7 @@ public  class Metodos
 		});	
 	}
 	
+	//Metodo para llenar las tablas dando la tabla a llenar y el query a ejecutar
 	public void llenarTabla (JTable tabla, String call) {
 		Conexion con = new Conexion();
 		DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
@@ -131,6 +125,5 @@ public  class Metodos
 			ex.printStackTrace();
 		}
 	}
-	
 	
 }

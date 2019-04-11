@@ -14,10 +14,6 @@ public class BotonAgregar extends JButton
 		return boton;
 	}
 
-	public void setBoton(ActionListener pAction) {
-		boton.addActionListener(pAction);
-	}
-
 	ImageIcon iconoBoton;
 
 	public JButton crear()

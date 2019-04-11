@@ -38,7 +38,7 @@ public class GUIRutas
 			  lblimg    ;
 	
 
-	public JPanel crear(Frame padre) 
+	public JPanel crear() 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -59,7 +59,7 @@ public class GUIRutas
 						{},
 				new String[]
 					{
-						"ID","Modelo","Capacidad"
+						"ID","Origen","Destino","Estado"
 					}
 				));
 		
@@ -138,7 +138,7 @@ public class GUIRutas
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true);
+		pnlBotones=metodos.crearBotones(true, true, true, 5);
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");

@@ -36,8 +36,7 @@ public class GUIAviones
 	JLabel    lblTitulo ,
 			  lblimg    ;
 	
-
-	public JPanel crear(Frame padre, Dimension pSize) 
+	public JPanel crear(Dimension pSize) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -133,7 +132,7 @@ public class GUIAviones
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, false, true);
+		pnlBotones=metodos.crearBotones(true, false, true, 4); //Crea los botones indicando el JDialog que va a abrir (num 4 en este caso para aviones) 	
 
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
