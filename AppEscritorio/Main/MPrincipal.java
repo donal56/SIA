@@ -5,7 +5,6 @@ import javax.swing.UIManager;
 
 import com.jtattoo.plaf.smart.SmartLookAndFeel;
 
-import GUIs.GUIAviones;
 import GUIs.GUIPrincipal;
 
 public class MPrincipal {
