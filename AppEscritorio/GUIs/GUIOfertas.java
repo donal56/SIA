@@ -56,7 +56,7 @@ public class GUIOfertas
 						{},
 				new String[]
 					{
-						"ID","Modelo","Capacidad"
+						"ID","Inicio","Fin","Porcentaje de descuento"
 					}
 				));
 				
@@ -115,7 +115,7 @@ public class GUIOfertas
 		pnlFiltro.add(btnBuscar   );
 		pnlFiltro.setBackground((new Color(80,200,243)));
 		
-		//Agregamos al panel titulo el label del tituolo y los filtros
+		//Agregamos al panel titulo el label del titulo y los filtros
 		pnlTitulo.add(lblTitulo,BorderLayout.NORTH );
 		pnlTitulo.add(pnlFiltro,BorderLayout.CENTER);
 		
@@ -128,7 +128,7 @@ public class GUIOfertas
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true);
+		pnlBotones=metodos.crearBotones(true, true, true, 8);
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");

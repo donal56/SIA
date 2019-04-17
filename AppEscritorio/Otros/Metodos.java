@@ -16,8 +16,8 @@ public  class Metodos
 	public BotonEliminar   btnEliminar  ;
 	public BotonActualizar btnActualizar;
 	
-	
-	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar)
+	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar,int tipo)
+
 	{
 		btnAgregar   =new BotonAgregar    ();
 		btnEliminar  =new BotonEliminar   ();
@@ -32,6 +32,7 @@ public  class Metodos
 		else
 		{
 			pnlGral.add(btnAgregar .crear    ());
+			listenerBtnAgregar(tipo); //Llamar al metodo que agrega el actionListener
 		}
 		if (pBtnEliminar==false)
 		{
@@ -51,14 +52,53 @@ public  class Metodos
 		}
 		pnlGral.setBackground(Color.white)  ;
 		return pnlGral;
-		
 	}
 	
-	
-	public void setBoton(ActionListener pAction) 
-	{
-		btnAgregar.setBoton(pAction);
+	//Metodo para agregar el actionListener al boton Agregar segun el parametro dado
+	public void listenerBtnAgregar(int tipo) {
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switch (tipo) {
+					case 1:
+						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
+						guiVuelos.setVisible(true);
+						break;
+					case 4:
+						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
+						guiAviones.setVisible(true);
+						break;
+					case 5:
+						GUIRutasAgregar guiRutas = new GUIRutasAgregar();
+						guiRutas.setVisible(true);
+						break;
+					case 8:
+						GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar();
+						guiOfertas.setVisible(true);
+						break;
+				}
+			}
+		});
 	}
+	
+	//Metodo para agregar el actionListener al boton Actualizar segun el parametro dado (en construccion)
+	public void listenerBtnActualizar(int tipo, Frame padre) {
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switch (tipo) {
+					case 1:
+						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
+						guiVuelos.setVisible(true);
+						break;
+					case 4:
+						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
+						guiAviones.setVisible(true);
+						break;
+				}
+			}
+		});	
+	}
+	
+	//Metodo para llenar las tablas dando la tabla a llenar y el query a ejecutar
 	public void llenarTabla (JTable tabla, String call) {
 		Conexion con = new Conexion();
 		DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();

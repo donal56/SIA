@@ -55,7 +55,8 @@ public class GUIVuelos
 						{},
 				new String[]
 					{
-						"ID","Fecha","Origen","Destino"
+						"ID","Fecha","Hora de salida","Hora de llegada","Origen","Destino",
+						"Porcentaje de descuento","Clase Turista","Clase Ejecutivo","Clase VIP"
 					}
 				));
 
@@ -133,7 +134,7 @@ public class GUIVuelos
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true);
+		pnlBotones=metodos.crearBotones(true, true, true, 1);
 			
 		pnlGeneral.add(lblTitulo , "split 2, left");
 		pnlGeneral.add(lblimg    ,"wrap, wrap"    );

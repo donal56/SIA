@@ -37,7 +37,6 @@ public class GUIAviones
 	JScrollPane spTabla;
 	JLabel    lblTitulo ,
 			  lblimg    ;
-	
 
 	public JPanel crear(Dimension pSize) 
 	{
@@ -135,17 +134,9 @@ public class GUIAviones
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, false, true);
-		metodos.setBoton(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Hola");
-			}
-		});
 
-		
+		pnlBotones=metodos.crearBotones(true, false, true, 4); //Crea los botones indicando el JDialog que va a abrir (num 4 en este caso para aviones)
+
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
 		pnlGeneral.add(pnlFiltro ,"center, wrap"        );

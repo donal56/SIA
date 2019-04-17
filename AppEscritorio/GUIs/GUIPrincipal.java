@@ -44,8 +44,7 @@ public class GUIPrincipal extends Ventana
 	static int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width ;
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	public static int est;
-	
-	
+		
 	public GUIPrincipal()
 	{
 		super("Principal",ancho,alto,true);
@@ -180,7 +179,9 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
+
 				pnlCentro.add(guiVuelos.crear());
+
 				pnlCentro.revalidate();
 			}
 		});
