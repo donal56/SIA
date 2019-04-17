@@ -1,22 +1,24 @@
 package GUIs;
+import java.awt.BorderLayout			  ;
+import java.awt.Color					  ;
+import java.awt.Container				  ;
+import java.awt.Cursor                    ;
+import java.awt.Dimension                 ;
+import java.awt.Font                      ;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.ImageIcon              ;
+import javax.swing.JButton                ;
+import javax.swing.JLabel                 ;
+import javax.swing.JPanel                 ;
+import javax.swing.JScrollPane            ;
+import javax.swing.JTable                 ;
+import javax.swing.JTextField             ;
+import javax.swing.SwingConstants         ;
 import javax.swing.table.DefaultTableModel;
+
+
 import Otros.Metodos;
 import net.miginfocom.swing.MigLayout;
 
@@ -37,7 +39,7 @@ public class GUIAviones
 			  lblimg    ;
 	
 
-	public JPanel crear(Frame padre, Dimension pSize) 
+	public JPanel crear(Dimension pSize) 
 	{
 		contenedor=new Container();
 		metodos   =new Metodos  ();
@@ -134,13 +136,21 @@ public class GUIAviones
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, false, true);
+		metodos.setBoton(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Hola");
+			}
+		});
 
+		
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
 		pnlGeneral.add(pnlFiltro ,"center, wrap"        );
 		pnlGeneral.add(spTabla   ,"split 2, center,wrap");
 		pnlGeneral.add(pnlBotones,"split 2,center"      );
-
 
 		return pnlGeneral;
 	}
