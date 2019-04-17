@@ -3,7 +3,6 @@ import java.awt.BorderLayout        ;
 import java.awt.Color               ;
 import java.awt.Container           ;
 import java.awt.Cursor              ;
-import java.awt.Font                ;
 import java.awt.GridLayout          ;
 import java.awt.Toolkit             ;
 import java.awt.event.ActionEvent   ;
@@ -13,8 +12,6 @@ import javax.swing.JButton          ;
 import javax.swing.JLabel           ;
 import javax.swing.JPanel           ;
 import javax.swing.SwingConstants   ;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import Otros.Ventana         ;
 
@@ -42,8 +39,7 @@ public class GUIPrincipal extends Ventana
 	GUIRutas      guiRutas     ;
 	GUIDocumentos guiDocumentos;
 	GUIOfertas    guiOfertas   ;
-	
-	Object estaClase = this;
+	GUICheckIn    guiCheckIn   ;
 	
 	static int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width ;
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -53,13 +49,6 @@ public class GUIPrincipal extends Ventana
 	public GUIPrincipal()
 	{
 		super("Principal",ancho,alto,true);
-		//Establecer el look and feel (apariencia) a la del sistema (Windows)
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
 		setAutoRequestFocus  (false      );
 		setBackground        (Color.white);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIPrincipal.class.getResource("/img/IcnVuelos.png")));
@@ -78,6 +67,7 @@ public class GUIPrincipal extends Ventana
 		guiRutas     =new GUIRutas  ();
 		guiDocumentos=new GUIDocumentos();
 		guiOfertas   =new GUIOfertas();
+		guiCheckIn   =new GUICheckIn();
 		
 		
 		//Inicializamos los panel
@@ -190,7 +180,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiVuelos.crear((GUIPrincipal)estaClase));
+				pnlCentro.add(guiVuelos.crear());
 				pnlCentro.revalidate();
 			}
 		});
@@ -202,7 +192,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiAviones.crear((GUIPrincipal)estaClase, pnlCentro.getSize()));
+				pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
 				pnlCentro.revalidate();
 			}
 		});
@@ -225,7 +215,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiRutas.crear((GUIPrincipal)estaClase));
+				pnlCentro.add(guiRutas.crear());
 				pnlCentro.revalidate();
 			}
 		});
@@ -237,7 +227,29 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiOfertas.crear((GUIPrincipal)estaClase));
+				pnlCentro.add(guiOfertas.crear());
+				pnlCentro.revalidate();
+			}
+		});
+		botones[1][1].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.setLayout(new GridLayout(1,1));
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiDocumentos.crear());
+				pnlCentro.revalidate();
+			}
+		});
+		botones[0][2].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.setLayout(new GridLayout(1,1));
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiCheckIn.crear());
 				pnlCentro.revalidate();
 			}
 		});
