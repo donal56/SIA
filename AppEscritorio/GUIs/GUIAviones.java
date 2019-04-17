@@ -135,7 +135,13 @@ public class GUIAviones
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 
-		pnlBotones=metodos.crearBotones(true, false, true, 4); //Crea los botones indicando el JDialog que va a abrir (num 4 en este caso para aviones)
+		pnlBotones=metodos.crearBotones(true, false, true); 
+		metodos.btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
+				guiAviones.setVisible(true);
+			}
+		});
 
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );

@@ -2,6 +2,8 @@ package Otros;
 
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -26,5 +28,10 @@ public class BotonEliminar extends JButton
 		boton.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonEliminar.png"     )));
 		return boton;
+	}
+	
+	@Override
+	public void addActionListener(ActionListener pAction) {
+		boton.addActionListener(pAction);
 	}
 }

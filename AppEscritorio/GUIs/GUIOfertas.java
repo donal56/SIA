@@ -6,6 +6,9 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -128,7 +131,13 @@ public class GUIOfertas
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true, 8);
+		pnlBotones=metodos.crearBotones(true, true, true);
+		metodos.btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar();
+				guiOfertas.setVisible(true);
+			}
+		});
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");

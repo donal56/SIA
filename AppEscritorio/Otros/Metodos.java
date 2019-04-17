@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import GUIs.GUIAvionesAgregar;
+import GUIs.GUIOfertasAgregar;
+import GUIs.GUIRutasAgregar;
+import GUIs.GUIVuelosAgregar;
 public  class Metodos 
 {
 	public  JPanel pnlGral = new JPanel();
@@ -16,7 +21,7 @@ public  class Metodos
 	public BotonEliminar   btnEliminar  ;
 	public BotonActualizar btnActualizar;
 	
-	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar,int tipo)
+	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar)
 
 	{
 		btnAgregar   =new BotonAgregar    ();
@@ -32,7 +37,6 @@ public  class Metodos
 		else
 		{
 			pnlGral.add(btnAgregar .crear    ());
-			listenerBtnAgregar(tipo); //Llamar al metodo que agrega el actionListener
 		}
 		if (pBtnEliminar==false)
 		{

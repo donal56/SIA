@@ -25,4 +25,9 @@ public class BotonAgregar extends JButton
 		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonAñadir.png")));
 		return boton;
 	}
+	
+	@Override
+	public void addActionListener(ActionListener pAction) {
+		boton.addActionListener(pAction);
+	}
 }

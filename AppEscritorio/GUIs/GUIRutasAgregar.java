@@ -6,7 +6,6 @@ import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import com.toedter.calendar.JDateChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
