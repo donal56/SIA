@@ -10,23 +10,90 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import Otros.Conexion;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class GUIRutasAgregar extends JDialog {
 	private JTextField txtFld_ID;
 	private JTextField txtFld_Origen;
 	private JTextField txtFld_Destino;
 	private JTextField txtFld_EstadoRuta;
-
+	private String ID;
+	
+	//Crear la ventana para una nueva ruta
 	/**
-	 * Create the dialog.
+	 * @wbp.parser.constructor
 	 */
-	public GUIRutasAgregar() {
-		super(new JFrame(), true);
+	public GUIRutasAgregar(Frame padre) {
+		super(padre, true);
+		initComponents(true);
+		this.setTitle("Agregar una ruta");
+	}
+	
+	//Crear la ventana para actualizar una ruta
+	public GUIRutasAgregar(Frame padre, String[] datos) {
+		super(padre, true);
+		initComponents(false);
+		this.setTitle("Actualizar una ruta");
+		ID = datos[0];
+		//Llenar los componentes con datos
+		txtFld_ID.setText(datos[0]);
+		txtFld_Origen.setText(datos[1]);
+		txtFld_Destino.setText(datos[2]);
+		txtFld_EstadoRuta.setText(datos[3]);
+	}
+	
+	private void botonCancelarAccion() {
+		this.dispose();
+		( (JFrame)(this.getParent()) ).dispose();
+	}
+	
+	//Un valor true indica una nueva ruta y un false indica actualizar una existente
+	private void botonAceptarAccion(boolean tipo) {
+		//Obtener los valores de las TextBox
+		String ID = txtFld_ID.getText();
+		String origen = txtFld_Origen.getText();
+		String destino = txtFld_Destino.getText();
+		String estadoRuta = txtFld_EstadoRuta.getText();
+		
+		//Crear el query considerando si es una nueva ruta o una actualizacion
+		Conexion con = new Conexion();
+		String query;
+		if (tipo) {
+			query = "INSERT INTO rutas VALUES (" +
+						ID + ", '" +
+						origen + "', '" +
+						destino + "', " + 
+						estadoRuta + ")";
+		} else {
+			query = "UPDATE rutas SET " + 
+						"idRuta = " + ID + 
+						", origen = '" + origen +
+						"', destino = '" + destino +
+						"', estado = " + estadoRuta +
+						" WHERE idRuta = " + this.ID;
+		}
+		//Ejecutar query, cerrar la conexion y la ventana
+		try {
+			con.realizarOperacion(query);
+			con.cerrarConexion();
+			botonCancelarAccion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void initComponents(boolean tipo) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		
 		setBounds(100, 100, 278, 293);
@@ -81,6 +148,11 @@ public class GUIRutasAgregar extends JDialog {
 		txtFld_EstadoRuta.setColumns(10);
 		
 		JButton btn_Aceptar = new JButton("Aceptar");
+		btn_Aceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				botonAceptarAccion(tipo);
+			}
+		});
 		btn_Aceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_Aceptar.setPressedIcon(new ImageIcon(GUIRutasAgregar.class.getResource("/img/Boton_Pres.png")));
 		btn_Aceptar.setIcon(new ImageIcon(GUIRutasAgregar.class.getResource("/img/Boton.png")));
@@ -93,6 +165,11 @@ public class GUIRutasAgregar extends JDialog {
 		getContentPane().add(btn_Aceptar);
 		
 		JButton btn_Cancelar = new JButton("Cancelar");
+		btn_Cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				botonCancelarAccion();
+			}
+		});
 		btn_Cancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btn_Cancelar.setPressedIcon(new ImageIcon(GUIRutasAgregar.class.getResource("/img/Boton_Pres.png")));
 		btn_Cancelar.setIcon(new ImageIcon(GUIRutasAgregar.class.getResource("/img/Boton.png")));

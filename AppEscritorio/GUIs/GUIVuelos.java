@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon     ;
 import javax.swing.JButton       ;
+import javax.swing.JFrame;
 import javax.swing.JLabel        ;
 import javax.swing.JPanel        ;
 import javax.swing.JScrollPane   ;
@@ -58,7 +59,7 @@ public class GUIVuelos
 						{},
 				new String[]
 					{
-						"ID","Fecha","Hora de salida","Hora de llegada","Origen","Destino",
+						"ID","Avi\u00F3n","Fecha","Hora de salida","Hora de llegada","Origen","Destino",
 						"Porcentaje de descuento","Clase Turista","Clase Ejecutivo","Clase VIP"
 					}
 				));
@@ -138,10 +139,25 @@ public class GUIVuelos
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, true, true);
+		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
+				GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar(new JFrame());
 				guiVuelos.setVisible(true);
+			}
+		});
+		//Agregar el ActionListener al boton Actualizar
+		metodos.btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para asignar los datos de la fila al array
+				int indiceVuelo = tabla.getSelectedRow();
+				if (indiceVuelo != -1) {
+					String[] datos = new String[11];
+					for	(int i = 0; i < 11; i++) 
+						datos[i] = (String)tabla.getValueAt(indiceVuelo, i);
+					GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar(new JFrame(), datos);
+					guiVuelos.setVisible(true);
+				}
 			}
 		});
 			

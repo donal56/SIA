@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -132,10 +133,25 @@ public class GUIOfertas
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, true, true);
+		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar();
+				GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar(new JFrame());
 				guiOfertas.setVisible(true);
+			}
+		});
+		//Agregar el ActionListener al boton Actualizar
+		metodos.btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para asignar los datos de la fila al array
+				int indiceOferta = tabla.getSelectedRow();
+				if (indiceOferta != -1) {
+					String[] datos = new String[4];
+					for	(int i = 0; i < 4; i++) 
+						datos[i] = (String)tabla.getValueAt(indiceOferta, i);
+					GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar(new JFrame(), datos);
+					guiOfertas.setVisible(true);
+				}
 			}
 		});
 			
