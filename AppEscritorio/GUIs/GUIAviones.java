@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon              ;
 import javax.swing.JButton                ;
+import javax.swing.JFrame;
 import javax.swing.JLabel                 ;
 import javax.swing.JPanel                 ;
 import javax.swing.JScrollPane            ;
@@ -136,10 +137,25 @@ public class GUIAviones
 		tabla.setBorder(null);
 
 		pnlBotones=metodos.crearBotones(true, false, true); 
+		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
+				GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(new JFrame());
 				guiAviones.setVisible(true);
+			}
+		});
+		//Agregar el ActionListener al boton Actualizar
+		metodos.btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para asignar los datos de la fila al array
+				int indiceAvion = tabla.getSelectedRow();
+				if (indiceAvion != -1) {
+					String[] datos = new String[2];
+					for	(int i = 0; i < 2; i++) 
+						datos[i] = (String)tabla.getValueAt(indiceAvion, i);
+					GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(new JFrame(), datos);
+					guiAviones.setVisible(true);
+				}
 			}
 		});
 

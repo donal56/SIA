@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +30,6 @@ public  class Metodos
 		btnAgregar   =new BotonAgregar    ();
 		btnEliminar  =new BotonEliminar   ();
 		btnActualizar=new BotonActualizar ();
-		
 		
 		//Condiciones para los botones
 		if (pBtnAgregar==false)
@@ -58,52 +60,8 @@ public  class Metodos
 		return pnlGral;
 	}
 	
-	//Metodo para agregar el actionListener al boton Agregar segun el parametro dado
-	public void listenerBtnAgregar(int tipo) {
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switch (tipo) {
-					case 1:
-						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
-						guiVuelos.setVisible(true);
-						break;
-					case 4:
-						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
-						guiAviones.setVisible(true);
-						break;
-					case 5:
-						GUIRutasAgregar guiRutas = new GUIRutasAgregar();
-						guiRutas.setVisible(true);
-						break;
-					case 8:
-						GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar();
-						guiOfertas.setVisible(true);
-						break;
-				}
-			}
-		});
-	}
-	
-	//Metodo para agregar el actionListener al boton Actualizar segun el parametro dado (en construccion)
-	public void listenerBtnActualizar(int tipo, Frame padre) {
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switch (tipo) {
-					case 1:
-						GUIVuelosAgregar guiVuelos = new GUIVuelosAgregar();
-						guiVuelos.setVisible(true);
-						break;
-					case 4:
-						GUIAvionesAgregar guiAviones = new GUIAvionesAgregar();
-						guiAviones.setVisible(true);
-						break;
-				}
-			}
-		});	
-	}
-	
 	//Metodo para llenar las tablas dando la tabla a llenar y el query a ejecutar
-	public void llenarTabla (JTable tabla, String call) {
+	public void llenarTabla(JTable tabla, String call) {
 		Conexion con = new Conexion();
 		DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
 		try {
@@ -119,5 +77,23 @@ public  class Metodos
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	//Metodo que toma una fecha en string dd/mm/yy y devuelve un objeto Date que representa esa fecha 
+	public Date obtenerFecha(String fecha) {
+		//Obtener las subcadenas de la fecha
+		String dd = fecha.substring(0, 2);
+		String mm = fecha.substring(3, 5);
+		String yy = fecha.substring(6);
+		//Convertir las strings a int
+		int day = Integer.parseInt(dd);
+		int month = Integer.parseInt(mm) - 1; //0 para Enero, 1 para Febrero, etc.
+		int year = Integer.parseInt(yy);
+		//Crear una instancia de Calendar y darle los valores, obtener la fecha en milisegundos
+		Calendar calendario = Calendar.getInstance();
+		calendario.set(year, month, day);
+		long milisegundos = calendario.getTimeInMillis();
+		//Retornar el objeto Date creado con los milisegundos
+		return new Date(milisegundos); 
 	}
 }
