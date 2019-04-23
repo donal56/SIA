@@ -40,6 +40,8 @@ public class GUIPrincipal extends Ventana
 	GUIDocumentos guiDocumentos;
 	GUIOfertas    guiOfertas   ;
 	GUICheckIn    guiCheckIn   ;
+	GUICancelar   guiCancelar  ;
+	GUIDevolución guiDevolucion;
 	
 	static int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width ;
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -61,12 +63,14 @@ public class GUIPrincipal extends Ventana
 		contenedorGral.setBackground (Color.white)       ;
 		
 		//Creamos las GUI
-		guiAviones   =new GUIAviones();
-		guiVuelos    =new GUIVuelos ();
-		guiRutas     =new GUIRutas  ();
+		guiAviones   =new GUIAviones   ();
+		guiVuelos    =new GUIVuelos    ();
+		guiRutas     =new GUIRutas     ();
 		guiDocumentos=new GUIDocumentos();
-		guiOfertas   =new GUIOfertas();
-		guiCheckIn   =new GUICheckIn();
+		guiOfertas   =new GUIOfertas   ();
+		guiCheckIn   =new GUICheckIn   ();
+		guiCancelar  =new GUICancelar  ();
+		guiDevolucion=new GUIDevolución();
 		
 		
 		//Inicializamos los panel
@@ -197,17 +201,6 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.revalidate();
 			}
 		});
-		//Boton Documentos
-		/*botones[1][1].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiDocumentos.crear());
-				pnlCentro.revalidate();
-			}
-		});*/
 		//Boton Rutas
 		botones[0][4].addActionListener(new ActionListener() 
 		{
@@ -232,6 +225,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.revalidate();
 			}
 		});
+		//Boton Documentos
 		botones[1][1].addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -243,6 +237,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.revalidate();
 			}
 		});
+		//Boton Check In
 		botones[0][2].addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -251,6 +246,30 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
 				pnlCentro.add(guiCheckIn.crear());
+				pnlCentro.revalidate();
+			}
+		});
+		//Boton Cancelar
+		botones[1][0].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.setLayout(new GridLayout(1,1));
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiCancelar.crear());
+				pnlCentro.revalidate();
+			}
+		});
+		//Boton devolución
+		botones[1][3].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.setLayout(new GridLayout(1,1));
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiDevolucion.crear());
 				pnlCentro.revalidate();
 			}
 		});
