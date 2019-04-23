@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon              ;
 import javax.swing.JButton                ;
+import javax.swing.JFrame;
 import javax.swing.JLabel                 ;
 import javax.swing.JPanel                 ;
 import javax.swing.JScrollPane            ;
@@ -37,7 +38,6 @@ public class GUIAviones
 	JScrollPane spTabla;
 	JLabel    lblTitulo ,
 			  lblimg    ;
-	
 
 	public JPanel crear(Dimension pSize) 
 	{
@@ -135,17 +135,30 @@ public class GUIAviones
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, false, true);
-		metodos.setBoton(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Hola");
+
+		pnlBotones=metodos.crearBotones(true, false, true); 
+		//Agregar el ActionListener al boton Agregar
+		metodos.btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(new JFrame());
+				guiAviones.setVisible(true);
+			}
+		});
+		//Agregar el ActionListener al boton Actualizar
+		metodos.btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para asignar los datos de la fila al array
+				int indiceAvion = tabla.getSelectedRow();
+				if (indiceAvion != -1) {
+					String[] datos = new String[2];
+					for	(int i = 0; i < 2; i++) 
+						datos[i] = (String)tabla.getValueAt(indiceAvion, i);
+					GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(new JFrame(), datos);
+					guiAviones.setVisible(true);
+				}
 			}
 		});
 
-		
 		pnlGeneral.add(lblTitulo ,"split 2, left"       );
 		pnlGeneral.add(lblimg    ,"wrap, wrap"          );
 		pnlGeneral.add(pnlFiltro ,"center, wrap"        );

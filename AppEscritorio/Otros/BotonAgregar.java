@@ -12,10 +12,6 @@ public class BotonAgregar extends JButton
 		return boton;
 	}
 
-	public void setBoton(ActionListener pAction) {
-		boton.addActionListener(pAction);
-	}
-
 	ImageIcon iconoBoton;
 
 	public JButton crear()
@@ -28,5 +24,10 @@ public class BotonAgregar extends JButton
 		boton.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		boton.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonAñadir.png")));
 		return boton;
+	}
+	
+	@Override
+	public void addActionListener(ActionListener pAction) {
+		boton.addActionListener(pAction);
 	}
 }

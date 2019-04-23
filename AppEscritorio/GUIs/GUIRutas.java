@@ -6,8 +6,12 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -56,7 +60,7 @@ public class GUIRutas
 						{},
 				new String[]
 					{
-						"ID","Modelo","Capacidad"
+						"ID","Origen","Destino","Estado"
 					}
 				));
 		
@@ -136,6 +140,27 @@ public class GUIRutas
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, true, true);
+		//Agregar el ActionListener al boton Agregar
+		metodos.btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIRutasAgregar guiRutas = new GUIRutasAgregar(new JFrame());
+				guiRutas.setVisible(true);
+			}
+		});
+		//Agregar el ActionListener al boton Actualizar
+		metodos.btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para asignar los datos de la fila al array
+				int indiceRuta = tabla.getSelectedRow();
+				if (indiceRuta != -1) {
+					String[] datos = new String[4];
+					for	(int i = 0; i < 4; i++) 
+						datos[i] = (String)tabla.getValueAt(indiceRuta, i);
+					GUIRutasAgregar guiRutas = new GUIRutasAgregar(new JFrame(), datos);
+					guiRutas.setVisible(true);
+				}
+			}
+		});
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");
