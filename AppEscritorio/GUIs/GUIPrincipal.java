@@ -42,6 +42,7 @@ public class GUIPrincipal extends Ventana
 	GUICheckIn    guiCheckIn   ;
 	GUICancelar   guiCancelar  ;
 	GUIDevolución guiDevolucion;
+	GUIReservas   guiReservas  ;
 	
 	static int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width ;
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -71,6 +72,7 @@ public class GUIPrincipal extends Ventana
 		guiCheckIn   =new GUICheckIn   ();
 		guiCancelar  =new GUICancelar  ();
 		guiDevolucion=new GUIDevolución();
+		guiReservas  =new GUIReservas  ();
 		
 		
 		//Inicializamos los panel
@@ -273,6 +275,18 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.revalidate();
 			}
 		});
+		//Boton Reservas
+		botones[0][1].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				pnlCentro.setLayout(new GridLayout(1,1));
+				pnlCentro.removeAll();
+				pnlCentro.repaint();
+				pnlCentro.add(guiReservas.crear(pnlCentro));
+				pnlCentro.revalidate();
+			}
+		});
 	}
 	public void crearBotones()
 	{
@@ -292,6 +306,17 @@ public class GUIPrincipal extends Ventana
 				pnlCentro    .add                 (botones   [i][j]);
 			}
 		}
+		pnlCentro.revalidate();
+	}
+	public JPanel getPnlCentro() {
+		return pnlCentro;
+	}
+	public void setPnlCentro(JPanel pnlCentro) 
+	{
+		pnlCentro.setLayout(new GridLayout(1,1));
+		pnlCentro.removeAll();
+		pnlCentro.repaint();
+		pnlCentro.add(pnlCentro);
 		pnlCentro.revalidate();
 	}
 }
