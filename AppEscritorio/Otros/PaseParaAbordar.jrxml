@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pruebaPDF" printOrder="Horizontal" pageWidth="878" pageHeight="367" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="878" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ee9ff29-7ad4-4179-a567-8103673cc03f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Java MySQL SIA"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<parameter name="ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 	idBoleto,
+		idVuelo,
+		noAsiento,
+        concat(nombre, " ", apellidoP, " ", apellidoM) AS pasajero,
+        fecha,
+        horaSalida,
+        origen,
+        destino,
+        clase,
+        CASE aa.clase 
+			WHEN 'Turista' THEN v.precioTurista
+            WHEN 'Ejecutivo' THEN v.precioEjecutivo 
+            WHEN 'VIP' THEN v.precioVIP 
+            ELSE NULL 
+		END AS precio
+FROM boletos b
+INNER JOIN clientes c
+INNER JOIN vuelos v
+INNER JOIN rutas r
+INNER JOIN aviones a
+INNER JOIN asientosAvion aa
+ON 	b.clientes_idCliente = c.idCliente AND
+	b.vuelos_idVuelo = v.idVuelo AND  
+    v.rutas_idRuta = r.idRuta AND 
+    v.aviones_idAvion = a.idAvion AND
+    a.modelosAvion_idModelo = aa.modelosAvion_idModelo AND
+    b.noAsiento BETWEEN aa.asientoInicio AND aa.asientoFin
+WHERE idBoleto = $P{ID}]]>
+	</queryString>
+	<field name="idBoleto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="idBoleto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="boletos"/>
+	</field>
+	<field name="idVuelo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idVuelo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="noAsiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="noAsiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="boletos"/>
+	</field>
+	<field name="pasajero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pasajero"/>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="horaSalida" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="horaSalida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="origen" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="origen"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rutas"/>
+	</field>
+	<field name="destino" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="destino"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rutas"/>
+	</field>
+	<field name="clase" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clase"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="asientosAvion"/>
+	</field>
+	<field name="precio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="precio"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="367" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="0" width="876" height="49" forecolor="#8FCDFF" backcolor="#8FCDFF" uuid="c6157ff5-672e-4ded-b4c5-9b5a811bf074"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="0" y="340" width="876" height="27" forecolor="#8FCDFF" backcolor="#8FCDFF" uuid="29cc84c6-a77d-4107-9ae9-65473cb17f10"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="600" y="0" width="1" height="367" uuid="a211c40b-3424-4fac-8b09-a3eba09d3a6e"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="0" y="0" width="119" height="48" uuid="74ba5b6e-9809-434b-a8b9-ba0e71375d37"/>
+				<imageExpression><![CDATA[getClass().getResource("/img/AeroAlpesLogo.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="190" y="0" width="320" height="49" uuid="273b49c7-ffc4-426d-8da2-f37b136955ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="32"/>
+				</textElement>
+				<text><![CDATA[Pase para abordar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="70" width="140" height="30" uuid="365ef75a-4135-4db8-83a2-8f9b6819b787"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre del pasajero]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="100" width="140" height="30" uuid="f63ce11b-ec01-42ae-b2bd-c2f96d8bafde"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pasajero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="130" width="100" height="30" uuid="5f355246-fbb9-4b8d-9d01-e708d0b7213e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="160" width="140" height="30" uuid="b22f3605-725f-41fc-978b-d3bd9adb1a3b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="190" width="100" height="30" uuid="dc6cd637-6246-47fa-93d6-e70783f22bca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="220" width="141" height="30" uuid="4ba7436d-6240-4a17-8766-156b69440833"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="70" width="100" height="30" uuid="201d84b0-ef54-4833-9f96-19d72750084b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Boleto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="100" width="100" height="30" uuid="68a58719-a964-47f7-b0bf-21f8ae17ba7c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idBoleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="130" width="100" height="30" uuid="e7fc7bb5-8616-4e05-a2ce-f891c3ecd873"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Vuelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="130" width="100" height="30" uuid="0db9a6ce-ef9b-40e9-a97f-36a7e8593fb7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="160" width="100" height="30" uuid="56697293-f7d6-4679-bcd3-09b180e4491b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="480" y="130" width="100" height="30" uuid="291d605e-559e-475d-b725-29dfe496eafe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="160" width="100" height="30" uuid="43790e1c-6533-4471-be29-a3989c1b9238"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaSalida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="160" width="100" height="30" uuid="8539d8ee-a5e2-4780-9c3c-0fd9a0f36767"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVuelo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="250" width="100" height="30" uuid="d946ddec-8a68-4f3a-a612-32480649b61e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Clase]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="280" width="100" height="30" uuid="ff76d0a2-f7e1-42ae-aa94-ea7d6a6c3e91"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clase}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="250" width="100" height="30" uuid="a137a76c-5bc5-4f93-b5ac-c203b3408838"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Asiento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="280" width="100" height="30" uuid="626d0569-150d-42af-afe7-223471d9f0bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noAsiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="250" width="100" height="30" uuid="3e06cdc0-072e-406a-8c8a-316bdda755f3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="280" width="100" height="30" uuid="a58f336d-c7e6-4e39-a68c-b3dca70cb9c9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+$F{precio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="680" y="9" width="139" height="30" uuid="81e56249-75ea-43cf-92f7-4906b37e79f2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="19"/>
+				</textElement>
+				<text><![CDATA[Disfute su vuelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="60" width="140" height="30" uuid="4dccda87-3ca4-421f-b83f-ccfc2cc97686"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre del pasajero]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="620" y="90" width="140" height="30" uuid="4c08d140-a697-4635-8f1f-e9e7e234abcd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pasajero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="760" y="60" width="100" height="30" uuid="9f6226db-9020-4f5e-bfd6-7784834ce1b4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Boleto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="760" y="90" width="100" height="30" uuid="39a1e0e8-3f14-41ef-8a61-663a70920c5b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idBoleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="619" y="130" width="100" height="30" uuid="5a547696-ed6d-4a54-9fbe-d33efabc467a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="619" y="160" width="120" height="30" uuid="14bd50c0-da1b-4eb5-a47f-6f2694e67202"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="739" y="160" width="121" height="30" uuid="a6e26328-d0cd-4553-a9a0-7d499fb4a35b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="739" y="130" width="100" height="30" uuid="09175448-39e8-468b-8b70-10da35797033"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="200" width="80" height="30" uuid="d71dd366-72be-4200-b084-b0d11854f866"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Vuelo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="620" y="230" width="80" height="30" uuid="a4abfdea-0b30-4288-9582-a74500055500"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVuelo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="700" y="200" width="78" height="30" uuid="6a999d6e-1118-46d9-94bc-3627cd8292e4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="230" width="79" height="30" uuid="92de8b97-7e59-4b0c-a43d-ade324340e9b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="779" y="200" width="81" height="30" uuid="2817453c-7765-4b1d-b052-769f1070b6de"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="779" y="230" width="81" height="30" uuid="18ce327e-cbda-4231-929d-253612c5134f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaSalida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="620" y="270" width="80" height="30" uuid="d713d6eb-4702-4edc-899a-df05329d0729"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Clase]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="620" y="300" width="80" height="30" uuid="3207f9ee-3ab5-4d48-8104-ca324421d18d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clase}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="700" y="270" width="78" height="30" uuid="aea2a1bf-e315-4d53-b7b1-2798c3dbd5fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Asiento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="300" width="78" height="30" uuid="3003ecd8-04a0-49df-8083-5a346ec9d14e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noAsiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="778" y="270" width="82" height="30" uuid="19873ef3-d9e1-4da4-b651-61bc403c38af"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="14"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="778" y="300" width="82" height="30" uuid="390d897f-a88e-4956-b93d-7ac15fe32906"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$"+$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

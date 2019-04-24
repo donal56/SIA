@@ -8,11 +8,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import Otros.Conexion;
 import Otros.Metodos;
 import net.miginfocom.swing.MigLayout;
 
@@ -151,9 +154,39 @@ public class GUIOfertas
 						datos[i] = (String)tabla.getValueAt(indiceOferta, i);
 					GUIOfertasAgregar guiOfertas = new GUIOfertasAgregar(new JFrame(), datos);
 					guiOfertas.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un registro primero", 
+							"Actualizar oferta", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
+		//Agregar el ActionListener al boton Eliminar
+		metodos.btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Obtener el indice de la fila seleccionada y usarlo para borrar el registro de la BD
+				int indiceOferta = tabla.getSelectedRow();
+				if (indiceOferta != -1) {
+					//Locale locale = new Locale("es", "MX");
+					//JOptionPane.setDefaultLocale(locale);
+					int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro seleccionado?", 
+										"Eliminar oferta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if (respuesta == JOptionPane.YES_OPTION) {
+						String ID = (String)tabla.getValueAt(indiceOferta, 0);
+						String query = "DELETE FROM ofertas WHERE idOferta = " + ID;
+						Conexion con = new Conexion();
+						try {
+							con.realizarOperacion(query);
+							con.cerrarConexion();
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un registro primero", 
+							"Eliminar oferta", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});	
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");

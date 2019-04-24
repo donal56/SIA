@@ -12,6 +12,7 @@ import javax.swing.ImageIcon              ;
 import javax.swing.JButton                ;
 import javax.swing.JFrame;
 import javax.swing.JLabel                 ;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel                 ;
 import javax.swing.JScrollPane            ;
 import javax.swing.JTable                 ;
@@ -155,6 +156,9 @@ public class GUIAviones
 						datos[i] = (String)tabla.getValueAt(indiceAvion, i);
 					GUIAvionesAgregar guiAviones = new GUIAvionesAgregar(new JFrame(), datos);
 					guiAviones.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un registro primero", 
+							"Actualizar avi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
