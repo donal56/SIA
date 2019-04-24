@@ -60,7 +60,7 @@ public class GUIDocumentos
 				));
 				
 		//Conexion 
-		//metodos.llenarTabla(tabla, "CALL sp_ConsultarOfertas(8,0,'0000-00-00','0000-00-00',0);");
+		metodos.llenarTabla(tabla, "SELECT * FROM documentacion;");
 		spTabla.setViewportView(tabla);
 		spTabla.setPreferredSize(new Dimension(1000,400));
 		
@@ -81,7 +81,7 @@ public class GUIDocumentos
 		JLabel lblPeso      = new JLabel("Peso "    );
 		JLabel lblPasajero  = new JLabel("Pasajero ");
 		JTextField txtID    = new JTextField("",20  );
-		JTextField txtPeso= new JTextField("",20  );
+		JTextField txtPeso  = new JTextField("",20  );
 		JTextField txtPasajero   = new JTextField("",20  );
 		
 		//Formato de los label

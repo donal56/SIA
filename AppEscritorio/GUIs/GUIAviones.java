@@ -5,12 +5,9 @@ import java.awt.Container				  ;
 import java.awt.Cursor                    ;
 import java.awt.Dimension                 ;
 import java.awt.Font                      ;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon              ;
 import javax.swing.JButton                ;
-import javax.swing.JFrame;
+import javax.swing.JFrame                 ;
 import javax.swing.JLabel                 ;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel                 ;
@@ -18,6 +15,8 @@ import javax.swing.JScrollPane            ;
 import javax.swing.JTable                 ;
 import javax.swing.JTextField             ;
 import javax.swing.SwingConstants         ;
+import java.awt.event.ActionEvent         ;
+import java.awt.event.ActionListener      ;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -93,9 +92,9 @@ public class GUIAviones
 		
 		
 		//Formato de los label
-		lblID       .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblModelo   .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblCapacidad.setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		lblID       .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblModelo   .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblCapacidad.setFont      (new Font("Segoe UI", Font.PLAIN, 30));
 		
 		//Se le quita el border a los text Field
 		txtID .setBorder(null);
@@ -107,11 +106,11 @@ public class GUIAviones
 		tabla.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		//Boton buscar
-		btnBuscar.setBorder                (null )     ;
-		btnBuscar.setSelectedIcon          (null)      ;
-		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		//btnBuscar.setPressedIcon           (new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
-		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
+		btnBuscar.setBorder       (null )     ;
+		btnBuscar.setSelectedIcon (null)      ;
+		btnBuscar.setCursor       (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		//btnBuscar.setPressedIcon(new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
+		btnBuscar.setIcon         (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
 		
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );
@@ -171,5 +170,4 @@ public class GUIAviones
 
 		return pnlGeneral;
 	}
-
 }

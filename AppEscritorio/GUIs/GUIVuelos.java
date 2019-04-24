@@ -1,29 +1,24 @@
 package GUIs;
 
-import java.awt.BorderLayout     ;
-import java.awt.Color            ;
-import java.awt.Container        ;
-import java.awt.Cursor           ;
-import java.awt.Dimension;
-import java.awt.Font             ;
-import java.awt.event.ActionEvent;
+import java.awt.BorderLayout        ;
+import java.awt.Color               ;
+import java.awt.Container           ;
+import java.awt.Cursor              ;
+import java.awt.Dimension           ;
+import java.awt.Font                ;
+import java.awt.event.ActionEvent   ;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
-import javax.swing.ImageIcon     ;
-import javax.swing.JButton       ;
-import javax.swing.JFrame;
-import javax.swing.JLabel        ;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel        ;
-import javax.swing.JScrollPane   ;
-import javax.swing.JTable        ;
-import javax.swing.JTextField    ;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
-
-import Otros.Conexion;
+import javax.swing.ImageIcon        ;
+import javax.swing.JButton          ;
+import javax.swing.JFrame           ;
+import javax.swing.JLabel           ;
+import javax.swing.JPanel           ;
+import javax.swing.JScrollPane      ;
+import javax.swing.JTable           ;
+import javax.swing.JTextField       ;
+import javax.swing.SwingConstants   ;
 import Otros.Metodos;
+import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
 
 public class GUIVuelos 
@@ -71,7 +66,7 @@ public class GUIVuelos
 		metodos.llenarTabla(tabla, "CALL sp_ConsultarVuelos(5,0,'0000-00-00','','');");
 		//metodos.llenarTabla(tabla,"Select * From vuelos;");
 		spTabla.setViewportView(tabla);
-		spTabla.setPreferredSize(new Dimension(1000,400));
+		spTabla.setPreferredSize(new Dimension(1200,400));
 		
 		//Formato titulo
 		lblTitulo.setOpaque    (true)                                ;                            ;
@@ -95,10 +90,10 @@ public class GUIVuelos
 		JTextField txtDestino = new JTextField("",20);
 		
 		//Formato de los label
-		lblID     .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblFecha  .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblOrigen .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblDestino.setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		lblID     .setFont      (new Font("Segoe UI", Font.PLAIN, 25));
+		lblFecha  .setFont      (new Font("Segoe UI", Font.PLAIN, 25));
+		lblOrigen .setFont      (new Font("Segoe UI", Font.PLAIN, 25));
+		lblDestino.setFont      (new Font("Segoe UI", Font.PLAIN, 25));
 		
 		//Se le quita el border a los text Field
 		txtID     .setBorder(null);
@@ -142,6 +137,7 @@ public class GUIVuelos
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
 		pnlBotones=metodos.crearBotones(true, true, true);
+		
 		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,7 +189,6 @@ public class GUIVuelos
 				}
 			}
 		});
-			
 		pnlGeneral.add(lblTitulo , "split 2, left");
 		pnlGeneral.add(lblimg    ,"wrap, wrap"    );
 		pnlGeneral.add(pnlFiltro ,"center, wrap"  );
