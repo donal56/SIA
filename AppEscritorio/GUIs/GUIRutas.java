@@ -138,7 +138,7 @@ public class GUIRutas
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true);
+		pnlBotones=metodos.crearBotones(true, false, true);
 		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
