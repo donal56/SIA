@@ -1,9 +1,6 @@
 package Otros;
 
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -13,16 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import GUIs.GUIAvionesAgregar;
-import GUIs.GUIOfertasAgregar;
-import GUIs.GUIRutasAgregar;
-import GUIs.GUIVuelosAgregar;
+import GUIs.GUIPrincipal;
+
 public  class Metodos 
 {
 	public  JPanel pnlGral = new JPanel();
 	public BotonAgregar    btnAgregar   ;
 	public BotonEliminar   btnEliminar  ;
 	public BotonActualizar btnActualizar;
+	public GUIPrincipal    guiPrincipal ;
 	
 	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar)
 
@@ -86,9 +82,9 @@ public  class Metodos
 		String mm = fecha.substring(3, 5);
 		String yy = fecha.substring(6);
 		//Convertir las strings a int
-		int day = Integer.parseInt(dd);
+		int day   = Integer.parseInt(dd);
 		int month = Integer.parseInt(mm) - 1; //0 para Enero, 1 para Febrero, etc.
-		int year = Integer.parseInt(yy);
+		int year  = Integer.parseInt(yy);
 		//Crear una instancia de Calendar y darle los valores, obtener la fecha en milisegundos
 		Calendar calendario = Calendar.getInstance();
 		calendario.set(year, month, day);

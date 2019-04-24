@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -65,7 +64,6 @@ public class GUIRutas
 					}
 				));
 		
-
 		//Conexion 
 		metodos.llenarTabla(tabla, "CALL sp_ConsultarRutas (8,0,'','',0)");
 		spTabla.setViewportView(tabla);
@@ -84,20 +82,20 @@ public class GUIRutas
 		
 		
 		//Elementos del filtrado
-		JLabel lblID         = new JLabel("ID    "     );
-		JLabel lblOrigen     = new JLabel("Origen    " );
-		JLabel lblDestino    = new JLabel("Destino    ");
-		JLabel lblEstado     = new JLabel("Estado    " );
+		JLabel lblID         = new JLabel("ID "     );
+		JLabel lblOrigen     = new JLabel("Origen " );
+		JLabel lblDestino    = new JLabel("Destino ");
+		JLabel lblEstado     = new JLabel("Estado " );
 		JTextField txtID     = new JTextField("",20    );
 		JTextField txtOrigen = new JTextField("",20    );
 		JTextField txtDestino= new JTextField("",20    );
 		JTextField txtEstado = new JTextField("",20    );
 		
 		//Formato de los label
-		lblID     .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblOrigen .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblDestino.setFont      (new Font("Segoe UI", Font.PLAIN, 20));
-		lblEstado .setFont      (new Font("Segoe UI", Font.PLAIN, 20));
+		lblID     .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblOrigen .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblDestino.setFont      (new Font("Segoe UI", Font.PLAIN, 30));
+		lblEstado .setFont      (new Font("Segoe UI", Font.PLAIN, 30));
 		
 		//Se le quita el border a los text Field
 		txtID     .setBorder(null);
@@ -140,7 +138,7 @@ public class GUIRutas
 		spTabla.setBackground(Color.WHITE);
 		spTabla.setBorder(null);
 		tabla.setBorder(null);
-		pnlBotones=metodos.crearBotones(true, true, true);
+		pnlBotones=metodos.crearBotones(true, false, true);
 		//Agregar el ActionListener al boton Agregar
 		metodos.btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
