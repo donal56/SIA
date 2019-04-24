@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -158,6 +159,9 @@ public class GUIRutas
 						datos[i] = (String)tabla.getValueAt(indiceRuta, i);
 					GUIRutasAgregar guiRutas = new GUIRutasAgregar(new JFrame(), datos);
 					guiRutas.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Seleccione un registro primero", 
+							"Actualizar ruta", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

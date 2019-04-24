@@ -80,5 +80,10 @@ public class Conexion {
         	conexion = null;
         }
     }
+    
+    //Metodo get para la conexion, usado por Jasper Reports para los pdf
+    public Connection getConnection() {
+    	return conexion;
+    }
 }
 
