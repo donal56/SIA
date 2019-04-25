@@ -83,10 +83,10 @@ public class GUIAsientos
 		pnlGeneral.setLayout(new MigLayout("insets 10 10 10 10","[grow][grow]",""));
 		
 		//Formato del panel de selección
-		pnlAsientos.setLayout(new MigLayout("insets 60 170 10 10"));
+		pnlAsientos.setLayout(new MigLayout("insets 50 170 10 10"));
 		pnlAsientos.setPreferredSize(new Dimension(560, 900));
 		pnlAsientos.setBackground(new ImageIcon(GUIPrincipal.class.getResource("/img/ModeloAvion.png"      )));
-		pnlAsientos.add(metodos.crearAsientos(6,20)); //Tamaño de la matriz
+		pnlAsientos.add(metodos.crearAsientos(6,23)); //Tamaño de la matriz
 		pnlAsientos.setAutoscrolls(true);
 		
 		pnlGeneral.add(lblTitulo,"wrap");

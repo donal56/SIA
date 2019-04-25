@@ -143,7 +143,19 @@ public  class Metodos
 			{
 				botones[i][j]=new JButton         (""+contador+"");
 				botones[i][j].setPreferredSize(new Dimension(40,40));					
-				panelBtn.add(botones[i][j],"cell"+j+" "+i);	
+				panelBtn.add(botones[i][j],"cell"+j+" "+i);
+				if (contador<=42) 
+				{
+					botones[i][j].setBackground(new Color(188,175,103));
+				}
+				if (contador>42 & contador<=72) 
+				{
+					botones[i][j].setBackground(new Color(71,255,78));
+				}
+				if (contador>72) 
+				{
+					botones[i][j].setBackground(new Color(108,112,236));
+				}
 				contador++;
 			}
 		}
