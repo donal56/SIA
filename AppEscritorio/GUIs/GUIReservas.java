@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -150,21 +151,32 @@ public class GUIReservas
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				int indiceVuelo = tabla.getSelectedRow();
-				if (indiceVuelo != -1) {
-					//JOptionPane.showMessageDialog(null, indiceVuelo);
-					String[] datos = new String[11];
-					String[] titulos=new String[11];
-					for	(int i = 0; i < 11; i++)
-					{
-						datos[i] = (String)tabla.getValueAt(indiceVuelo, i);
-						titulos[i]=(String)tabla.getColumnName(i);
-						guiAsientos =new GUIAsientos(datos,titulos);
+				
+				try {
+					int indiceVuelo = tabla.getSelectedRow();
+					if (indiceVuelo != -1) {
+						//JOptionPane.showMessageDialog(null, indiceVuelo);
+						String[] datos = new String[11];
+						String[] titulos=new String[11];
+						for	(int i = 0; i < 11; i++)
+						{
+							datos[i] = (String)tabla.getValueAt(indiceVuelo, i);
+							titulos[i]=(String)tabla.getColumnName(i);
+							guiAsientos =new GUIAsientos(datos,titulos);
+						}
 					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Seleccione un vuelo");
+					}
+					pnlCentral.removeAll();
+					pnlCentral.add(guiAsientos.crear());
+					pnlCentral.revalidate();
+					
+				} catch (Exception e2) {
+					pnlCentral.revalidate();
+					// TODO: handle exception
 				}
-				pnlCentral.removeAll();
-				pnlCentral.add(guiAsientos.crear());
-				pnlCentral.revalidate();
 			}
 		});
 
