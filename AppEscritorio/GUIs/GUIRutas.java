@@ -38,7 +38,6 @@ public class GUIRutas
 	JLabel    lblTitulo ,
 			  lblimg    ;
 	
-
 	public JPanel crear() 
 	{
 		contenedor=new Container();
@@ -112,6 +111,33 @@ public class GUIRutas
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
 		btnBuscar.setOpaque                (false);
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = txtID.getText();
+				String origen = txtOrigen.getText();
+				String destino = txtDestino.getText();
+				String estado = txtEstado.getText();
+				String query = "";
+				boolean queryValido = true;
+				if (!ID.equals("") && origen.equals("") && destino.equals("") && estado.equals("")) {
+					query = "CALL sp_ConsultarRutas(1, " + ID + ", '', '', 0)";					
+				} else if (ID.equals("") && !origen.equals("") && !destino.equals("") && estado.equals("")) {
+					query = "CALL sp_ConsultarRutas(6, 0, '" + origen + "', '" + destino + "', 0)";
+				} else if (ID.equals("") && origen.equals("") && destino.equals("") && !estado.equals("")) {
+					query = "CALL sp_ConsultarRutas(7, 0, '', '', " + estado + ")";
+				} else if (ID.equals("") && origen.equals("") && destino.equals("") && estado.equals("")) {
+					query = "CALL sp_ConsultarRutas(8, 0, '', '', 0)";
+				} else {
+					JOptionPane.showMessageDialog(null, "Opciones de filtrado incorrectas", 
+							"Buscar ruta", JOptionPane.INFORMATION_MESSAGE);
+					queryValido = false;
+				}
+				if (queryValido) {
+					( (DefaultTableModel)tabla.getModel() ).setRowCount(0);
+					metodos.llenarTabla(tabla, query);
+				}
+			}
+		});
 		
 		//Se agregan al panel
 		pnlFiltro.add(lblID      );

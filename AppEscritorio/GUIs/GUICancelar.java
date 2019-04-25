@@ -4,15 +4,31 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import Otros.Conexion;
 import net.miginfocom.swing.MigLayout;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class GUICancelar 
 {
@@ -46,6 +62,36 @@ public class GUICancelar
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setPreferredSize(new Dimension(100,50));
 		btnBuscar.setBackground(Color.WHITE);
+		//Agregar el ActionListener al boton Buscar
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String idBoleto = txtBoleto.getText();
+				String query = "SELECT status FROM boletos WHERE idBoleto = '" + idBoleto + "'";
+				Conexion con = new Conexion();
+				try {
+					ResultSet status = con.obtenerDatos(query);
+					boolean existe = status.isBeforeFirst();
+					if (existe) {
+						status.next();
+						String valor = status.getString(1);
+						if (valor.equals("0")) {
+							query = "UPDATE boletos b SET b.status = 2 WHERE idBoleto = '" + idBoleto + "'";
+							con.realizarOperacion(query);
+						} else {
+							JOptionPane.showMessageDialog(null, "El boleto ya ha sido cancelado o ya se ha confirmado previamente "
+									+ "y ya no es posible cancelarlo", 
+									"Cancelar boleto", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "No existe el boleto", 
+								"Cancelar boleto", JOptionPane.INFORMATION_MESSAGE);
+					}
+					con.cerrarConexion();
+				} catch (SQLException ex) {					
+					ex.printStackTrace();
+				}
+			}
+		});
 		
 		lblTexto.setOpaque    (true);
 		lblTexto.setBackground(new Color(0,102,177));

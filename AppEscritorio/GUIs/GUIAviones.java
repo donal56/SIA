@@ -111,6 +111,32 @@ public class GUIAviones
 		btnBuscar.setCursor       (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		//btnBuscar.setPressedIcon(new ImageIcon(GUIPrincipal.class.getResource("/img/LoginBotonAceptar_Pres.png")));
 		btnBuscar.setIcon         (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = txtID.getText();
+				String modelo = txtMod.getText();
+				String capacidad = txtCap.getText();
+				String query = "";
+				boolean queryValido = true;
+				if (!ID.equals("") && modelo.equals("") && capacidad.equals("")) {
+					query = "CALL sp_ConsultarAviones(1, " + ID + ", '', 0)";					
+				} else if (ID.equals("") && !modelo.equals("") && capacidad.equals("")) {
+					query = "CALL sp_ConsultarAviones(4, 0, '" + modelo + "', 0)";
+				} else if (ID.equals("") && modelo.equals("") && !capacidad.equals("")) {
+					query = "CALL sp_ConsultarAviones(5, 0, '', " + capacidad + ")";
+				} else if (ID.equals("") && modelo.equals("") && capacidad.equals("")) {
+					query = "CALL sp_ConsultarAviones(8, 3, '', 0)";
+				} else {
+					JOptionPane.showMessageDialog(null, "Opciones de filtrado incorrectas", 
+							"Buscar avi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
+					queryValido = false;
+				}
+				if (queryValido) {
+					( (DefaultTableModel)tabla.getModel() ).setRowCount(0);
+					metodos.llenarTabla(tabla, query);
+				}
+			}
+		});
 		
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );
