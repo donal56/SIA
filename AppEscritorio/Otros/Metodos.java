@@ -1,16 +1,24 @@
 package Otros;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import GUIs.GUIPrincipal;
+import net.miginfocom.swing.MigLayout;
 
 public  class Metodos 
 {
@@ -91,5 +99,56 @@ public  class Metodos
 		long milisegundos = calendario.getTimeInMillis();
 		//Retornar el objeto Date creado con los milisegundos
 		return new Date(milisegundos); 
+	}
+	
+	//Metodo que creara los botones de asiento
+	public JPanel crearAsientos(int pX, int pY)
+	{
+		int x=pX;
+		int y=pY;
+		JPanel  panelBtn=new JPanel();
+		JButton botones    [][]  ;
+		JLabel separador;
+		
+		botones  = new JButton  [y][x];
+		separador= new JLabel();
+		int contador=1;
+		separador.setPreferredSize(new Dimension(10,200));
+		separador.setVisible(true);
+		
+		String tamaño="";
+		String tamaño2="";
+		for (int i = -1; i < x; i++)
+		{
+			if(i==2)
+			{
+				tamaño+="35";
+			}else
+			{
+				tamaño+="[grow]";
+			}
+		}
+		for (int i = -1; i < y; i++)
+		{
+			tamaño2+="[grow]";
+		}
+		//panelBtn.setLayout(new GridLayout(y,x));
+		panelBtn.setLayout(new MigLayout("",tamaño,tamaño2));
+		panelBtn.setPreferredSize(new Dimension(250,700));
+		panelBtn.setOpaque(false);
+		
+		for (int i=0;i<y;i++)
+		{
+			for (int j = 0; j < x; j++) 
+			{
+				botones[i][j]=new JButton         (""+contador+"");
+				botones[i][j].setPreferredSize(new Dimension(40,40));					
+				panelBtn.add(botones[i][j],"cell"+j+" "+i);	
+				contador++;
+			}
+		}
+		panelBtn.setAutoscrolls(true);
+
+		return panelBtn;
 	}
 }
