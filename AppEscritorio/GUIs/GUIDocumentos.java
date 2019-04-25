@@ -6,9 +6,14 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -59,8 +64,14 @@ public class GUIDocumentos
 					}
 				));
 				
-		//Conexion 
-		metodos.llenarTabla(tabla, "SELECT * FROM documentacion;");
+		//Conexion
+		String query = "SELECT 	idDocumentacion," +
+				"peso," + 
+				"concat(nombre, \" \", apellidoP, \" \", apellidoM) AS pasajero " + 
+				"FROM documentacion d " + 
+				"INNER JOIN clientes c " + 
+				"ON d.clientes_idCliente = c.idCliente";
+		metodos.llenarTabla(tabla, query);
 		spTabla.setViewportView(tabla);
 		spTabla.setPreferredSize(new Dimension(1000,400));
 		
@@ -74,7 +85,6 @@ public class GUIDocumentos
 		//Elementos en el panel filtro
 		pnlFiltro.setLayout(new MigLayout());
 		//pnlTitulo.setLayout(new BorderLayout()                       );
-		
 		
 		//Elementos del filtrado
 		JLabel lblID        = new JLabel("ID "      );
@@ -103,6 +113,37 @@ public class GUIDocumentos
 		btnBuscar.setSelectedIcon          (null)      ;
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = txtID.getText();
+				String peso = txtPeso.getText();
+				String pasajero = txtPasajero.getText();
+				String query = "SELECT 	idDocumentacion," +
+						"peso," + 
+						"concat(nombre, \" \", apellidoP, \" \", apellidoM) AS pasajero " + 
+						"FROM documentacion d " + 
+						"INNER JOIN clientes c " + 
+						"ON d.clientes_idCliente = c.idCliente";
+				boolean queryValido = true;
+				if (!ID.equals("") && peso.equals("") && pasajero.equals("")) {
+					query += " WHERE idDocumentacion = " + ID;					
+				} else if (ID.equals("") && !peso.equals("") && pasajero.equals("")) {
+					query += " WHERE peso = " + peso;
+				} else if (ID.equals("") && peso.equals("") && !pasajero.equals("")) {
+					query += " HAVING pasajero = '" + pasajero + "'";
+				} else if (ID.equals("") && peso.equals("") && pasajero.equals("")) {
+					//No es necesario hacer nada
+				} else {
+					JOptionPane.showMessageDialog(null, "Opciones de filtrado incorrectas", 
+							"Buscar maleta", JOptionPane.INFORMATION_MESSAGE);
+					queryValido = false;
+				}
+				if (queryValido) {
+					( (DefaultTableModel)tabla.getModel() ).setRowCount(0);
+					metodos.llenarTabla(tabla, query);
+				}
+			}
+		});
 			
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );
@@ -128,6 +169,12 @@ public class GUIDocumentos
 		spTabla.setBorder(null);
 		tabla  .setBorder(null);
 		pnlBotones=metodos.crearBotones(true, false, false);
+		metodos.btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIDocumentosAgregar guiDocumentos = new GUIDocumentosAgregar(new JFrame());
+				guiDocumentos.setVisible(true);
+			}
+		});
 			
 		pnlGeneral.add(lblTitulo, "split 2, left");
 		pnlGeneral.add(lblimg,"wrap, wrap");

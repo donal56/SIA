@@ -111,6 +111,30 @@ public class GUIOfertas
 		btnBuscar.setSelectedIcon          (null)      ;
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = txtID.getText();
+				String inicio = txtInicio.getText();
+				String fin = txtFin.getText();
+				String query = "";
+				boolean queryValido = true;
+				if (!ID.equals("") && inicio.equals("") && fin.equals("")) {
+					query = "CALL sp_ConsultarOfertas(1, " + ID + ", '0000-00-00', '0000-00-00', 0)";					
+				} else if (ID.equals("") && !inicio.equals("") && !fin.equals("")) {
+					query = "CALL sp_ConsultarOfertas(4, 0, '" + inicio + "', '" + fin + "', 0)";
+				} else if (ID.equals("") && inicio.equals("") && fin.equals("")) {
+					query = "CALL sp_ConsultarOfertas(8, 0, '0000-00-00', '0000-00-00', 0)";
+				} else {
+					JOptionPane.showMessageDialog(null, "Opciones de filtrado incorrectas", 
+							"Buscar oferta", JOptionPane.INFORMATION_MESSAGE);
+					queryValido = false;
+				}
+				if (queryValido) {
+					( (DefaultTableModel)tabla.getModel() ).setRowCount(0);
+					metodos.llenarTabla(tabla, query);
+				}
+			}
+		});
 			
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );

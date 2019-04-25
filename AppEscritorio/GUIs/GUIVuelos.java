@@ -115,6 +115,31 @@ public class GUIVuelos
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setIcon                  (new ImageIcon(GUIPrincipal.class.getResource("/img/icnBotonIr.png"     )));
 		btnBuscar.setOpaque(false);
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = txtID.getText();
+				String fecha = txtFecha.getText();
+				String origen = txtOrigen.getText();
+				String destino = txtDestino.getText();
+				String query = "";
+				boolean queryValido = true;
+				if (!ID.equals("") && fecha.equals("") && origen.equals("") && destino.equals("")) {
+					query = "CALL sp_ConsultarVuelos(1, " + ID + ", '0000-00-00', '', '')";					
+				} else if (ID.equals("") && !fecha.equals("") && !origen.equals("") && !destino.equals("")) {
+					query = "CALL sp_ConsultarVuelos(4, 0, '" + fecha + "', '" + origen + "', '" + destino + "')";
+				} else if (ID.equals("") && fecha.equals("") && origen.equals("") && destino.equals("")) {
+					query = "CALL sp_ConsultarVuelos(5, 0, '0000-00-00', '', '')";
+				} else {
+					JOptionPane.showMessageDialog(null, "Opciones de filtrado incorrectas", 
+							"Buscar vuelo", JOptionPane.INFORMATION_MESSAGE);
+					queryValido = false;
+				}
+				if (queryValido) {
+					( (DefaultTableModel)tabla.getModel() ).setRowCount(0);
+					metodos.llenarTabla(tabla, query);
+				}
+			}
+		});
 			
 		//Se agregan al panel
 		pnlFiltro.add(lblID       );

@@ -63,6 +63,7 @@ public class GUICheckIn
 		btnBuscar.setCursor                (Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnBuscar.setPreferredSize(new Dimension(100,50));
 		btnBuscar.setBackground(Color.WHITE);
+		//Agregar el ActionListener al boton Buscar
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String idBoleto = txtBoleto.getText();
@@ -99,7 +100,7 @@ public class GUICheckIn
 					        	conn = null;
 					        }
 						} else {
-							JOptionPane.showMessageDialog(null, "El boleto ya ha sido confirmado", 
+							JOptionPane.showMessageDialog(null, "El boleto ya ha sido confirmado o cancelado", 
 									"Check-in", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} else {
