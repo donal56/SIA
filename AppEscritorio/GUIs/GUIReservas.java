@@ -151,7 +151,6 @@ public class GUIReservas
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
 				try {
 					int indiceVuelo = tabla.getSelectedRow();
 					if (indiceVuelo != -1) {
@@ -170,12 +169,11 @@ public class GUIReservas
 						JOptionPane.showMessageDialog(null, "Seleccione un vuelo");
 					}
 					pnlCentral.removeAll();
-					pnlCentral.add(guiAsientos.crear());
+					pnlCentral.add(guiAsientos.crear(pPanel));
 					pnlCentral.revalidate();
 					
 				} catch (Exception e2) {
-					pnlCentral.revalidate();
-					// TODO: handle exception
+					pnlCentral.add(crear(pnlCentral));
 				}
 			}
 		});

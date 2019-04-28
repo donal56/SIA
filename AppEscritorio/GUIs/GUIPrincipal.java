@@ -199,7 +199,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
+				pnlCentro.add(guiAviones.crear());
 				pnlCentro.revalidate();
 			}
 		});

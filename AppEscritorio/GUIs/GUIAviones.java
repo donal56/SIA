@@ -26,7 +26,6 @@ import net.miginfocom.swing.MigLayout;
 public class GUIAviones 
 {
 
-	Container contenedor;
 	JPanel    pnlGeneral,
 	          pnlFiltro ,
 	          pnlTitulo ,
@@ -39,9 +38,8 @@ public class GUIAviones
 	JLabel    lblTitulo ,
 			  lblimg    ;
 
-	public JPanel crear(Dimension pSize) 
+	public JPanel crear() 
 	{
-		contenedor=new Container();
 		metodos   =new Metodos  ();
 		pnlGeneral=new JPanel   ();
 		pnlFiltro =new JPanel   ();
