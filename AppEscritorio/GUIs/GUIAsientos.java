@@ -284,7 +284,7 @@ public class GUIAsientos
 		});
 	    
 		//Formato del panel de asientos
-		pnlAvion=metodos.crearAsientos(6,25,250); //Filas,Columnas,Maximo de lugares
+		pnlAvion=metodos.crearAsientos(6,42); //Filas,Columnas,Maximo de lugares
 		pnlAsientos.setLayout       (new MigLayout("insets 50 210 10 10","[][]","[][][]"));
 		pnlAsientos.setAutoscrolls  (true);
 		pnlAsientos.add             (pnlAvion); 
