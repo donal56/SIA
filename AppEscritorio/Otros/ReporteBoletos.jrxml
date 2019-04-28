@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteBoletos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Java MySQL SIA"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<parameter name="ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 	idBoleto,
+		idVuelo,
+		noAsiento,
+        fecha,
+        horaSalida,
+        origen,
+        destino,
+        clase,
+        CASE aa.clase 
+			WHEN 'Turista' THEN v.precioTurista
+            WHEN 'Ejecutivo' THEN v.precioEjecutivo 
+            WHEN 'VIP' THEN v.precioVIP 
+            ELSE NULL 
+		END AS precio
+FROM boletos b
+INNER JOIN clientes c
+INNER JOIN vuelos v
+INNER JOIN rutas r
+INNER JOIN aviones a
+INNER JOIN asientosAvion aa
+ON 	b.clientes_idCliente = c.idCliente AND
+	b.vuelos_idVuelo = v.idVuelo AND  
+    v.rutas_idRuta = r.idRuta AND 
+    v.aviones_idAvion = a.idAvion AND
+    a.modelosAvion_idModelo = aa.modelosAvion_idModelo AND
+    b.noAsiento BETWEEN aa.asientoInicio AND aa.asientoFin
+WHERE idVuelo = $P{ID} AND b.status <> 2]]>
+	</queryString>
+	<field name="idBoleto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="idBoleto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="boletos"/>
+	</field>
+	<field name="idVuelo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="idVuelo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="noAsiento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="noAsiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="boletos"/>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="horaSalida" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="horaSalida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vuelos"/>
+	</field>
+	<field name="origen" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="origen"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rutas"/>
+	</field>
+	<field name="destino" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="destino"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rutas"/>
+	</field>
+	<field name="clase" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="clase"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="asientosAvion"/>
+	</field>
+	<field name="precio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="precio"/>
+	</field>
+	<variable name="Total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{precio}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="201" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="Segoe UI"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
+				<textElement>
+					<font fontName="Segoe UI"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="140" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
+				<imageExpression><![CDATA[getClass().getResource("/img/AeroAlpesLogo.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Segoe UI" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AeroAlpes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<textElement>
+					<font fontName="Segoe UI"/>
+				</textElement>
+				<text><![CDATA[aeroalpes@outlook.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="25" width="205" height="30" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<textElement>
+					<font fontName="Segoe UI"/>
+				</textElement>
+				<text><![CDATA[Km. 3.5 Carretera, Villahermosa - Frontera, Cd Industrial 86010 Villahermosa, Tab]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="310" height="30" uuid="90a118ca-28bd-4a38-a0be-ebd6263ff628"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="22"/>
+				</textElement>
+				<text><![CDATA[Boletos vendidos para el vuelo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="90" width="170" height="30" uuid="7f102a6e-7b70-42c1-acfc-65059ba750e4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idVuelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="130" width="139" height="30" uuid="aea690a9-4147-4924-bd91-857926a4077a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha: "+$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="130" width="240" height="30" uuid="1c84b89b-08fa-4d69-850e-ee478fe3f387"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hora de salida: "+$F{horaSalida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="160" width="240" height="30" uuid="a5ab04ac-c044-40e2-915a-b30301ebb26a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Origen: "+$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="160" width="240" height="30" uuid="c39151e7-9424-45b0-92eb-97c7404072b5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Destino: "+$F{destino}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-1" y="200" width="556" height="1" uuid="6eefa9d3-f708-4e28-ad00-50d3a463213d">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="30" uuid="54df1c13-8a08-4ccc-afd3-fd7e537b17b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8efa6b56-84c9-4a4f-8aec-f7acf6e96464"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<text><![CDATA[Boleto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="10" width="100" height="30" uuid="ebfbb0fd-47a1-42aa-966d-445d552f9f64">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff51a3af-265b-4826-a4ef-53e32cdbe32d"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<text><![CDATA[Asiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="10" width="100" height="30" uuid="6cb8a169-1005-4d39-af9a-fa9ffc55254c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8df7fa2-e31f-468e-8ce0-4fd1eef61c1f"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<text><![CDATA[Clase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="10" width="100" height="30" uuid="5f6d58fc-f2e7-4f94-a7f5-b55250a64ad4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a29c73c-4151-4679-803e-ed22a3c39edb"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="25" uuid="4b0b65b8-3d70-4f3a-bc31-367f8e05747a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8efa6b56-84c9-4a4f-8aec-f7acf6e96464"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idBoleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="25" uuid="15bd72dd-5594-449c-8e27-e8e9750ec5e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff51a3af-265b-4826-a4ef-53e32cdbe32d"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noAsiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="25" uuid="059c46bb-0985-4fd0-ac05-3d2698539588">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8df7fa2-e31f-468e-8ce0-4fd1eef61c1f"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clase}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="25" uuid="c873e6bd-86bf-408f-b97c-c1b5c2da249d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a29c73c-4151-4679-803e-ed22a3c39edb"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="54">
+			<line>
+				<reportElement x="0" y="0" width="556" height="1" uuid="4a3f4465-6438-4f20-84a8-c65bbb8d4f30">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="200" y="1" width="100" height="30" uuid="858ac843-9572-4f7c-9758-bb5862007855"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<text><![CDATA[Total: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="1" width="100" height="30" uuid="067bfd93-660d-410f-87bb-27327e2c3e71"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Segoe UI" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>
