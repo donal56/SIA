@@ -2,6 +2,7 @@ package GUIs;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -9,34 +10,44 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import Otros.Conexion;
+
 import javax.swing.JButton;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class GUILogin extends JFrame {
-	private JTextField txtField_Usuario;
-	private JPasswordField passField_Contrasena;
+	private JTextField txtFld_Usuario;
+	private JPasswordField pssFld_Contrasena;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUILogin frame = new GUILogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	private void botonAceptarAccion() {
+		boolean aceptado = false;
+		String usuario = txtFld_Usuario.getText();
+		String contrasena = pssFld_Contrasena.getText();
+		Conexion con = new Conexion();
+		String query = "SELECT tipo "
+				+ "FROM empleados "
+				+ "WHERE usuario = '" + usuario + "' AND contrasena = AES_ENCRYPT('" + contrasena + "', 'sia2019')";
+		try {
+			ResultSet resultado = con.obtenerDatos(query);
+			aceptado = resultado.isBeforeFirst();
+			if (aceptado) {
+				resultado.next();
+				new GUIPrincipal(resultado.getString(1)).setVisible(true);
+				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Error en la autencaci\u00F3n. Confirme que su usuario y "
+						+ "contrase\u00F1a sean conrrectos.", "Autenticaci\u00F3n fallida", JOptionPane.INFORMATION_MESSAGE);
 			}
-		});
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public GUILogin() {
 		setResizable(false);
 		setTitle("Ingresar");
@@ -58,29 +69,32 @@ public class GUILogin extends JFrame {
 		getContentPane().add(lbl_Ingresar);
 		
 		JLabel lbl_Usuario = new JLabel("Usuario");
+		lbl_Usuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_Usuario.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		lbl_Usuario.setBounds(233, 127, 76, 35);
 		getContentPane().add(lbl_Usuario);
 		
 		JLabel lbl_Contrasena = new JLabel("Contrase\u00F1a");
+		lbl_Contrasena.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_Contrasena.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		lbl_Contrasena.setBounds(195, 188, 114, 35);
 		getContentPane().add(lbl_Contrasena);
 		
-		txtField_Usuario = new JTextField();
-		txtField_Usuario.setBorder(new LineBorder(new Color(70, 130, 180)));
-		txtField_Usuario.setBounds(329, 136, 145, 25);
-		getContentPane().add(txtField_Usuario);
-		txtField_Usuario.setColumns(10);
+		txtFld_Usuario = new JTextField();
+		txtFld_Usuario.setBorder(new LineBorder(new Color(70, 130, 180)));
+		txtFld_Usuario.setBounds(329, 136, 145, 25);
+		getContentPane().add(txtFld_Usuario);
+		txtFld_Usuario.setColumns(10);
 		
-		passField_Contrasena = new JPasswordField();
-		passField_Contrasena.setBorder(new LineBorder(new Color(70, 130, 180)));
-		passField_Contrasena.setBounds(329, 197, 145, 25);
-		getContentPane().add(passField_Contrasena);
+		pssFld_Contrasena = new JPasswordField();
+		pssFld_Contrasena.setBorder(new LineBorder(new Color(70, 130, 180)));
+		pssFld_Contrasena.setBounds(329, 197, 145, 25);
+		getContentPane().add(pssFld_Contrasena);
 		
 		JButton btn_Aceptar = new JButton("Aceptar");
 		btn_Aceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				botonAceptarAccion();
 			}
 		});
 		btn_Aceptar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -94,16 +108,6 @@ public class GUILogin extends JFrame {
 		btn_Aceptar.setIcon(new ImageIcon(GUILogin.class.getResource("/img/LoginBotonAceptar.png")));
 		btn_Aceptar.setBounds(298, 283, 97, 35);
 		getContentPane().add(btn_Aceptar);
-		
-		JButton btn_Contrasena = new JButton("\u00BFNo recuerda su contrase\u00F1a?");
-		btn_Contrasena.setFocusPainted(false);
-		btn_Contrasena.setContentAreaFilled(false);
-		btn_Contrasena.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btn_Contrasena.setForeground(new Color(47, 79, 79));
-		btn_Contrasena.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_Contrasena.setBorder(null);
-		btn_Contrasena.setBounds(297, 234, 177, 21);
-		getContentPane().add(btn_Contrasena);
-
+		setLocationRelativeTo(null);
 	}
 }
