@@ -60,14 +60,14 @@ public class GUIPrincipal extends Ventana
 	static int alto  = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	public static int est;
 		
-	public GUIPrincipal()
+	public GUIPrincipal(String tipo)
 	{
-		super("Principal",ancho,alto,true);
+		super("Principal",ancho,alto,true, tipo);
 		setAutoRequestFocus  (false      );
 		setBackground        (Color.white);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIPrincipal.class.getResource("/img/IcnVuelos.png")));
 	}
-	public void crear() 
+	public void crear(String tipo) 
 	{
 		//Formato contenedor general
 		contenedorGral=new Container ()                  ;
@@ -133,32 +133,32 @@ public class GUIPrincipal extends Ventana
 		icnPressed  = new ImageIcon[2][5];
 		
 		//Aquí se crean todos los iconos de los botones
-		icnBotones[0][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnVuelos.png"      ));
-		icnBotones[0][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReservas.png"    ));
-		icnBotones[0][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCheckIn.png"     ));
+		icnBotones[0][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReservas.png"    ));
+		icnBotones[0][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCheckIn.png"     ));
+		icnBotones[0][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnVuelos.png"      ));
 		icnBotones[0][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnAviones.png"     ));
 		icnBotones[0][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnRutas.png"       ));
-		icnBotones[1][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCancelar.png"    ));
-		icnBotones[1][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDocumentos.png"  ));
-		icnBotones[1][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnOfertas.png"     ));
-		icnBotones[1][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDevoluciones.png"));
-		icnBotones[1][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReportes.png"    ));
+		icnBotones[1][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDocumentos.png"  ));
+		icnBotones[1][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnOfertas.png"     ));
+		icnBotones[1][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReportes.png"    ));
+		icnBotones[1][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCancelar.png"    ));
+		icnBotones[1][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDevoluciones.png"));
 		
 		//Aqui se crean todos los iconos pressed de los botones
-		icnPressed[0][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnVuelos_pressed.png"      ));
-		icnPressed[0][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReservas_pressed.png"    ));
-		icnPressed[0][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCheckIn_pressed.png"     ));
+		icnPressed[0][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReservas_pressed.png"    ));
+		icnPressed[0][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCheckIn_pressed.png"     ));
+		icnPressed[0][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnVuelos_pressed.png"      ));
 		icnPressed[0][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnAviones_pressed.png"     ));
 		icnPressed[0][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnRutas_pressed.png"       ));
-		icnPressed[1][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCancelar_pressed.png"    ));
-		icnPressed[1][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDocumentos_pressed.png"  ));
-		icnPressed[1][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnOfertas_pressed.png"     ));
-		icnPressed[1][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDevoluciones_pressed.png"));
-		icnPressed[1][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReportes_pressed.png"    ));
+		icnPressed[1][0] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDocumentos_pressed.png"  ));
+		icnPressed[1][1] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnOfertas_pressed.png"     ));
+		icnPressed[1][2] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnReportes_pressed.png"    ));
+		icnPressed[1][3] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnCancelar_pressed.png"    ));
+		icnPressed[1][4] =new ImageIcon(GUIPrincipal.class.getResource("/img/IcnDevoluciones_pressed.png"));
 		
 		//Se crean, se le dan formato y se insertan botones
 		
-		crearBotones();
+		crearBotones(tipo);
 		//Este bloque ajusta los reajusta los componentes al redimensionar la ventana
 		/*this.addComponentListener(new java.awt.event.ComponentAdapter() 
 		{
@@ -186,150 +186,195 @@ public class GUIPrincipal extends Ventana
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				crear();
+				crear(tipo);
 			}
 		});
 		//Boton Vuelos
-		botones[0][0].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
+		if (!(botones[0][0] == null)) {
+			botones[0][0].addActionListener(new ActionListener() 
 			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
 
-				pnlCentro.add(guiVuelos.crear());
+					pnlCentro.add(guiVuelos.crear());
 
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Aviones
-		botones[0][3].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Rutas
-		botones[0][4].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiRutas.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Ofertas
-		botones[1][2].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiOfertas.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Documentos
-		botones[1][1].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiDocumentos.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Check In
-		botones[0][2].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiCheckIn.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Cancelar
-		botones[1][0].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiCancelar.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton devolución
-		botones[1][3].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiDevolucion.crear());
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Reservas
-		botones[0][1].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				pnlCentro.setLayout(new GridLayout(1,1));
-				pnlCentro.removeAll();
-				pnlCentro.repaint();
-				pnlCentro.add(guiReservas.crear(pnlCentro));
-				pnlCentro.revalidate();
-			}
-		});
-		//Boton Reportes
-		botones[1][4].addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				String ID = JOptionPane.showInputDialog(null, "Introduzca el ID del vuelo", 
-						"Reporte de boletos", JOptionPane.INFORMATION_MESSAGE);
-				try {
-					JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/ReporteBoletos.jasper"));					
-					HashMap<String, Object> parametro = new HashMap<String, Object>();
-					parametro.put("ID", ID);
-					JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, new Otros.Conexion().getConnection());					
-					JasperViewer jv = new JasperViewer(doc, false);
-					JDialog dialog = new JDialog((JFrame)null, true);
-					dialog.setContentPane(jv.getContentPane());
-					dialog.setSize(jv.getSize());
-					dialog.setTitle("Pase para abordar");
-					dialog.setVisible(true);	
-				} catch (JRException ex) {
-					ex.printStackTrace();
+					pnlCentro.revalidate();
 				}
-			}
-		});
+			});
+		}
+		//Boton Aviones
+		if (!(botones[0][1] == null)) {
+			botones[0][1].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Rutas
+		if (!(botones[0][2] == null)) {
+			botones[0][2].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiRutas.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Ofertas
+		if (!(botones[1][4] == null)) {
+			botones[1][4].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiOfertas.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Documentos
+		if (!(botones[1][3] == null)) {
+			botones[1][3].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiDocumentos.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Check In
+		if (!(botones[1][2] == null)) {
+			botones[1][2].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiCheckIn.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Cancelar
+		if (!(botones[0][3] == null)) {
+			botones[0][3].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiCancelar.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton devolución
+		if (!(botones[0][4] == null)) {
+			botones[0][4].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiDevolucion.crear());
+					pnlCentro.revalidate();
+				}
+			});
+		}
+		//Boton Reservas
+		if (!(botones[1][1] == null)) {
+			botones[1][1].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					pnlCentro.setLayout(new GridLayout(1,1));
+					pnlCentro.removeAll();
+					pnlCentro.repaint();
+					pnlCentro.add(guiReservas.crear(pnlCentro));
+					pnlCentro.revalidate();
+				}
+			});
+		}		
+		//Boton Reportes
+		if (!(botones[1][0] == null)) {
+			botones[1][0].addActionListener(new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					String ID = JOptionPane.showInputDialog(null, "Introduzca el ID del vuelo", 
+							"Reporte de boletos", JOptionPane.INFORMATION_MESSAGE);
+					try {
+						JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/ReporteBoletos.jasper"));					
+						HashMap<String, Object> parametro = new HashMap<String, Object>();
+						parametro.put("ID", ID);
+						JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, new Otros.Conexion().getConnection());					
+						JasperViewer jv = new JasperViewer(doc, false);
+						JDialog dialog = new JDialog((JFrame)null, true);
+						dialog.setContentPane(jv.getContentPane());
+						dialog.setSize(jv.getSize());
+						dialog.setTitle("Pase para abordar");
+						dialog.setVisible(true);	
+					} catch (JRException ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+		}
 	}
-	public void crearBotones()
+	public void crearBotones(String tipo)
 	{
 		pnlCentro.removeAll();
 		pnlCentro.repaint();
-		for (int i=0;i<2;i++)
+		int indice1 = 0; 
+		int indice2 = 0; 
+		int iLimite = 0; 
+		int jLimite = 0;
+		if (tipo.equals("Gerente")) {
+			iLimite = 2;
+			jLimite = 5;
+			
+		} else if (tipo.equals("Trabajador de ventanilla")) {
+			iLimite = 1;
+			jLimite = 2;
+		} else if (tipo.equals("Gerencia Técnica")) {
+			indice2 = 2;
+			iLimite = 1;
+			jLimite = 5;
+		} else if (tipo.equals("Seguridad")) { 		 		
+			indice1 = 1;
+			iLimite = 2;
+			jLimite = 1;
+		} else if (tipo.equals("Marketing")) {		
+			indice1 = 1;
+			indice2 = 1;
+			iLimite = 2;
+			jLimite = 3;
+		}
+		for (int i = indice1; i < iLimite; i++)
 		{
-			for (int j = 0; j < 5; j++) 
+			for (int j = indice2; j < jLimite; j++) 
 			{
 				botones[i][j]=new JButton         ();
 				botones[i][j].setBorderPainted    (false           );   //Quitar bordes
