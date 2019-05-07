@@ -161,7 +161,7 @@ public class GUIAvionesAgregar extends JDialog {
 		pnl_Modelo.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		pnl_Modelo.setBackground(new Color(255, 255, 255));
 		pnl_Modelo.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(70, 130, 180)), "Modelo", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnl_Modelo.setBounds(30, 67, 288, 290);
+		pnl_Modelo.setBounds(30, 67, 288, 330);
 		getContentPane().add(pnl_Modelo);
 		pnl_Modelo.setLayout(null);
 		
@@ -286,6 +286,18 @@ public class GUIAvionesAgregar extends JDialog {
 		txtFld_TuristaFin.setColumns(10);
 		txtFld_TuristaFin.setBounds(234, 256, 30, 20);
 		pnl_Modelo.add(txtFld_TuristaFin);
+		
+		JButton btn_NuevoModelo = new JButton("Nuevo modelo");
+		btn_NuevoModelo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_NuevoModelo.setPressedIcon(new ImageIcon(GUIAvionesAgregar.class.getResource("/img/Boton_Pres.png")));
+		btn_NuevoModelo.setIcon(new ImageIcon(GUIAvionesAgregar.class.getResource("/img/Boton.png")));
+		btn_NuevoModelo.setOpaque(false);
+		btn_NuevoModelo.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_NuevoModelo.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		btn_NuevoModelo.setContentAreaFilled(false);
+		btn_NuevoModelo.setBorder(null);
+		btn_NuevoModelo.setBounds(175, 296, 89, 23);
+		pnl_Modelo.add(btn_NuevoModelo);
 		
 		JButton btn_Aceptar = new JButton("Aceptar");
 		btn_Aceptar.addActionListener(new ActionListener() {

@@ -1,4 +1,3 @@
-
 package GUIs;
 
 import java.awt.Color;
@@ -185,4 +184,3 @@ public class GUIDevolución
 	return pnlGeneral;
 }
 }
-

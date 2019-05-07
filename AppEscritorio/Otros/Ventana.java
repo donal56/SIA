@@ -4,23 +4,23 @@ import javax.swing.JFrame;
 
 public abstract class Ventana extends JFrame
 {
-	public Ventana(String tipo)
+	public Ventana()
 	{
-		this("Nueva ventana",tipo);
+		this("Nueva ventana");
 	}
-	public Ventana(String pTítulo,String tipo)
+	public Ventana(String pTítulo)
 	{
-		this(pTítulo,600,600,tipo);
+		this(pTítulo,600,600);
 	}
-	public Ventana(String pTítulo,Integer pAncho,Integer pLargo,String tipo)
+	public Ventana(String pTítulo,Integer pAncho,Integer pLargo)
 	{
-		this(pTítulo,pAncho,pLargo,false,tipo);
+		this(pTítulo,pAncho,pLargo,false);
 	}
-	public Ventana(String pTítulo,Integer pAncho,Integer pLargo,Boolean pPrincipal,String tipo)
+	public Ventana(String pTítulo,Integer pAncho,Integer pLargo,Boolean pPrincipal)
 	{
-		this(pTítulo,pAncho,pLargo,pPrincipal,-1,-1,tipo);
+		this(pTítulo,pAncho,pLargo,pPrincipal,-1,-1);
 	}
-	public Ventana(String pTítulo,Integer pAncho,Integer pLargo,Boolean pPrincipal,Integer pX,Integer pY,String tipo)
+	public Ventana(String pTítulo,Integer pAncho,Integer pLargo,Boolean pPrincipal,Integer pX,Integer pY )
 	{
 		this.setTitle(pTítulo);
 		this.setSize(pAncho,pLargo);
@@ -40,9 +40,9 @@ public abstract class Ventana extends JFrame
 		{
 			this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		}
-		crear(tipo);
+		crear();
 		this.setVisible(true);
 	}
 	
-	public abstract void crear(String tipo);
+	public abstract void crear();
 }
