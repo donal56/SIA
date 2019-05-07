@@ -1,5 +1,6 @@
 package Main;
 import java.util.Properties;
+
 import javax.swing.UIManager;
 
 import com.jtattoo.plaf.smart.SmartLookAndFeel;
