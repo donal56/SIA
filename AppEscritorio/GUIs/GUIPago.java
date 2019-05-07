@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -26,10 +27,13 @@ public class GUIPago
 	       lblNBebes  ,
 	       lblNAsiento,
 	       lblNClase  ;
+	JTextPane txtInfo ;
 	Font   font       ;
+	String datos      ;
 	
-	public JPanel crear(String pAdultos,String pMenores,String pBebe,String pAsiento,String pClase)
+	public JPanel crear(String pAdultos,String pMenores,String pBebe,String pAsiento,String pClase,String[] pTitulos,String[] pDatos)
 	{
+		datos      ="";
 		pnlGeneral =new JPanel(            );
 		pnlInfo    =new JPanel(            );
 		lblTitulo  =new JLabel("Pago"      );
@@ -44,6 +48,7 @@ public class GUIPago
 		lblClase   =new JLabel("Clase"     );
 		lblAsiento =new JLabel("No.Asiento");
 		lblDetalles=new JLabel("Detalles de la compra");
+		txtInfo    =new JTextPane(         );
 		font       =new Font  ("Segoe UI", Font.PLAIN, 15);
 		lblNAdultos.setText(pAdultos+"");
 		lblNMenores.setText(pMenores+"");
@@ -58,6 +63,11 @@ public class GUIPago
 		lblTitulo.setFont      (new Font("Segoe UI", Font.PLAIN, 80));
 		lblTitulo.setForeground(new Color(0,88,143))                 ;
 		
+		//Almacenamiento de datos 
+		for (int i = 1; i < pDatos.length-4; i++) 
+		{
+			datos+=pTitulos[i]+": "+pDatos[i]+"\n";
+		}
 		//Formato del panel de la informacion
 		pnlInfo.setLayout(new MigLayout("","[][]","[][]"));
 		pnlInfo.setBackground(Color.WHITE);
@@ -65,6 +75,8 @@ public class GUIPago
 		pnlInfo.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		
 		lblDetalles.setFont(new Font("Segoe UI",Font.PLAIN,25));
+		txtInfo.setText(datos);
+		txtInfo.setPreferredSize(new Dimension(200,215));
 		
 		//Formato de los label
 		lblAdultos .setFont(font);
@@ -77,19 +89,21 @@ public class GUIPago
 		lblNClase  .setFont(font);
 		lblAsiento .setFont(font);
 		lblNAsiento.setFont(font);
+		txtInfo    .setFont(font);
 		
 		//Se anexan los elementos al panel de información
 		pnlInfo.add(lblDetalles,"cell 0 0,left,wrap");
+		pnlInfo.add(txtInfo    ,"cell 2 1 0 6");
 		pnlInfo.add(lblAdultos ,"cell 0 1,left");
-		pnlInfo.add(lblNAdultos,"wrap");
-		pnlInfo.add(lblMenores ,"left");
-		pnlInfo.add(lblNMenores,"wrap");
-		pnlInfo.add(lblBebes   ,"left");
-		pnlInfo.add(lblNBebes  ,"wrap");
-		pnlInfo.add(lblAsiento ,"left");
-		pnlInfo.add(lblNAsiento,"wrap");
-		pnlInfo.add(lblClase   ,"left");
-		pnlInfo.add(lblNClase  );
+		pnlInfo.add(lblNAdultos,"cell 0 1,right");
+		pnlInfo.add(lblMenores ,"cell 0 2,left");
+		pnlInfo.add(lblNMenores,"cell 0 2,right");
+		pnlInfo.add(lblBebes   ,"cell 0 3,left");
+		pnlInfo.add(lblNBebes  ,"cell 0 3,right");
+		pnlInfo.add(lblAsiento ,"cell 0 4,left");
+		pnlInfo.add(lblNAsiento,"cell 0 4,right");
+		pnlInfo.add(lblClase   ,"cell 0 5,left");
+		pnlInfo.add(lblNClase  ,"cell 0 5,right");
 		
 		
 		//Formato del panel general

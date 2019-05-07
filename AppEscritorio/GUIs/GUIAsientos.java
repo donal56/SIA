@@ -34,8 +34,7 @@ public class GUIAsientos
 	String[]  datos         ;
 	JPanel    pnlGeneral    , //Panel que contiene todo
 	          pnlSeleccion  , //Panel donde se eligen numeros de pasajeros y tipos de pasajeros
-	          pnlAvion      ,
-	          pnlCentral    ;
+	          pnlAvion      ;
 	Container contenedor    ;
 	JTextPane txtDatos      ;
 	JLabel    lblTitulo     ,
@@ -66,7 +65,6 @@ public class GUIAsientos
 			   txtNAsiento  ,
 			   txtClase     ;
 	JButton    btnSiguiente ;
-	GUIPago    guiPago      ;
 	JPanelBackground pnlAsientos ; //Panel donde se colocan los asientos, se modifico para poder poder tener de fondo la imagen del avion , 
 	                               //la clase JPanelBackground se encuentra en el pack Otros
 	JButton[][] botones;
@@ -76,18 +74,16 @@ public class GUIAsientos
 		datos  =pDatos;
 		titulos=pTitulos;
 	}
-	public JPanel crear(JPanel pPanel)
+	public JPanel crear()
 	{
 		//Segmento donde se inicializan
-		info         =""    ;
-		ctdAdultos   =0     ;
-		ctdMenores   =0     ;
-		ctdBebes     =0     ;
-		pnlCentral   =pPanel;
+		info         ="";
+		ctdAdultos   =0;
+		ctdMenores   =0;
+		ctdBebes     =0;
 		pnlGeneral   =new JPanel     (  );
 		pnlSeleccion =new JPanel     (  );
 		pnlAvion     =new JPanel     (  );
-		guiPago      =new GUIPago    (  );
 		contenedor   =new Container  (  );
 		txtDatos     =new JTextPane  (  );
 		btnMas1      =new JButton    (  );
@@ -113,6 +109,7 @@ public class GUIAsientos
 		lblBebes     =new JLabel("Bebes"       );
 		lblAsiento   =new JLabel("No.Asiento"  );
 		lblClase     =new JLabel("Clase"       );
+		
 		//Segmento de formato de titulo y color del panel
 		lblTitulo.setOpaque     (true)                                ;
 		pnlGeneral.setBackground(Color.WHITE)						  ;
@@ -283,8 +280,9 @@ public class GUIAsientos
 			}
 		});
 	    
+		
 		//Formato del panel de asientos
-		pnlAvion=metodos.crearAsientos(6,42); //Filas,Columnas,Maximo de lugares
+		pnlAvion=metodos.crearAsientos(6,25,250); //Filas,Columnas,Maximo de lugares
 		pnlAsientos.setLayout       (new MigLayout("insets 50 210 10 10","[][]","[][][]"));
 		pnlAsientos.setAutoscrolls  (true);
 		pnlAsientos.add             (pnlAvion); 
@@ -304,28 +302,18 @@ public class GUIAsientos
 		btnSiguiente.setForeground(Color.BLACK);
 		btnSiguiente.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		
-		//Action del boton siguiente
-		btnSiguiente.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				pnlCentral.removeAll ();
-				pnlCentral.add(guiPago.crear(txtNAdultos.getText(),txtNMenores.getText(),txtNBebes.getText(),txtNAsiento.getText(),txtClase.getText()));
-				pnlCentral.revalidate();
-			}
-		});
 		//Formato del JScrollPane
-		spAsientos.setBorder       (null                   );
-		spAsientos.setOpaque       (false                  );
-		spAsientos.setBackground   (Color.WHITE            );
-		spAsientos.setViewportView (pnlAsientos            );
+		spAsientos.setBorder(null);
+		spAsientos.setOpaque(false);
+		spAsientos.setBackground(Color.WHITE);
+		spAsientos.setViewportView(pnlAsientos);
 		spAsientos.setPreferredSize(new Dimension(710, 900));
 		
-		pnlGeneral.add(lblTitulo   ,"cell 0 0, left"   );
-		pnlGeneral.add(pnlSeleccion,"cell 0 1, left"   );
-		pnlGeneral.add(txtDatos    ,"cell 0 2, left"   );
-		pnlGeneral.add(spAsientos  ,"cell 1 0 0 3,wrap");
-		pnlGeneral.add(btnSiguiente,"cell 0 2, right"  );
+		pnlGeneral.add(lblTitulo   ,"cell 0 0, left");
+		pnlGeneral.add(pnlSeleccion,"cell 0 1, left");
+		pnlGeneral.add(txtDatos    ,"cell 0 2, left");
+		pnlGeneral.add(spAsientos  ,"cell 1 0 0 3,wrap" );
+		pnlGeneral.add(btnSiguiente,"cell 0 2, right");
 		
 		return pnlGeneral;
 	}

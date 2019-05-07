@@ -7,13 +7,24 @@ import java.awt.GridLayout          ;
 import java.awt.Toolkit             ;
 import java.awt.event.ActionEvent   ;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+
 import javax.swing.ImageIcon        ;
 import javax.swing.JButton          ;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel           ;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel           ;
 import javax.swing.SwingConstants   ;
 
 import Otros.Ventana         ;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /*Esta GUI es la que aloja el menu principal de la aplicacción de escritorio, se extiende de una clase Ventana donde le doy formato a la 
@@ -199,7 +210,7 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.setLayout(new GridLayout(1,1));
 				pnlCentro.removeAll();
 				pnlCentro.repaint();
-				pnlCentro.add(guiAviones.crear());
+				pnlCentro.add(guiAviones.crear(pnlCentro.getSize()));
 				pnlCentro.revalidate();
 			}
 		});
@@ -285,6 +296,29 @@ public class GUIPrincipal extends Ventana
 				pnlCentro.repaint();
 				pnlCentro.add(guiReservas.crear(pnlCentro));
 				pnlCentro.revalidate();
+			}
+		});
+		//Boton Reportes
+		botones[1][4].addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				String ID = JOptionPane.showInputDialog(null, "Introduzca el ID del vuelo", 
+						"Reporte de boletos", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/ReporteBoletos.jasper"));					
+					HashMap<String, Object> parametro = new HashMap<String, Object>();
+					parametro.put("ID", ID);
+					JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, new Otros.Conexion().getConnection());					
+					JasperViewer jv = new JasperViewer(doc, false);
+					JDialog dialog = new JDialog((JFrame)null, true);
+					dialog.setContentPane(jv.getContentPane());
+					dialog.setSize(jv.getSize());
+					dialog.setTitle("Pase para abordar");
+					dialog.setVisible(true);	
+				} catch (JRException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 	}

@@ -110,7 +110,7 @@ public  class Metodos
 	}
 	
 	//Metodo que creara los botones de asiento
-	public JPanel crearAsientos(int pX, int pY)
+	public JPanel crearAsientos(int pX, int pY, int pMax)
 	{
 		x=pX;
 		y=pY;
@@ -141,7 +141,7 @@ public  class Metodos
 		}
 		//panelBtn.setLayout(new GridLayout(y,x));
 		panelBtn.setLayout(new MigLayout("",tamaño,tamaño2));
-		panelBtn.setPreferredSize(new Dimension(325,1200));
+		panelBtn.setPreferredSize(new Dimension(325,700));
 		panelBtn.setOpaque(false);
 		
 		for (int i=0;i<y;i++)
@@ -149,12 +149,12 @@ public  class Metodos
 			for (int j = 0; j < x; j++) 
 			{
 				botones[i][j]=new JButton         (""+contador+"");
-				botones[i][j].setPreferredSize(new Dimension(100,100));					
+				botones[i][j].setPreferredSize(new Dimension((panelBtn.getMaximumSize().height/y),(panelBtn.getMaximumSize().width/x)));					
 				panelBtn.add(botones[i][j],"cell"+j+" "+i);
-				/*if(contador>pMax)
+				if(contador>pMax)
 				{
 					botones[i][j].setVisible(false);
-				}*/
+				}
 				contador++;
 			}
 		}
