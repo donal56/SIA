@@ -1,5 +1,4 @@
 package GUIs;
-
 import java .awt.Color;
 import java.awt.Component;
 import java .awt.Container;
@@ -20,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -34,7 +32,8 @@ public class GUIAsientos
 	String[]  datos         ;
 	JPanel    pnlGeneral    , //Panel que contiene todo
 	          pnlSeleccion  , //Panel donde se eligen numeros de pasajeros y tipos de pasajeros
-	          pnlAvion      ;
+	          pnlAvion      ,
+	          pnlCentral    ;
 	Container contenedor    ;
 	JTextPane txtDatos      ;
 	JLabel    lblTitulo     ,
@@ -69,10 +68,14 @@ public class GUIAsientos
 	                               //la clase JPanelBackground se encuentra en el pack Otros
 	JButton[][] botones;
 	int contador=0;
-	public GUIAsientos(String[] pDatos,String[] pTitulos)
+	Integer pasajeros=0;
+	GUIPago    guiPago=new GUIPago();
+	
+	public GUIAsientos(String[] pDatos,String[] pTitulos,JPanel pPanel)
 	{
-		datos  =pDatos;
-		titulos=pTitulos;
+		datos     =pDatos;
+		titulos   =pTitulos;
+		pnlCentral=pPanel;
 	}
 	public JPanel crear()
 	{
@@ -301,6 +304,25 @@ public class GUIAsientos
 		btnSiguiente.setBackground(new Color(80,200,243));
 		btnSiguiente.setForeground(Color.BLACK);
 		btnSiguiente.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		
+		//Action listener del boton siguiente
+		btnSiguiente.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				pasajeros=Integer.parseInt(txtNAdultos.getText())+Integer.parseInt(txtNMenores.getText())+Integer.parseInt(txtNBebes.getText());
+				if(pasajeros==txtNAsiento.getText().split(",").length)
+				{
+					pnlCentral.removeAll();
+					pnlCentral.add(guiPago.crear(txtNAdultos.getText(), txtNMenores.getText(), txtNBebes.getText(), txtNAsiento.getText(), txtClase.getText(), titulos, datos));
+					pnlCentral.revalidate();
+				}else
+				{
+					JOptionPane.showMessageDialog(null, "El numero de pasajeros no coincide con el numero de asientos seleccionados");
+				}
+			}
+		});
 		
 		//Formato del JScrollPane
 		spAsientos.setBorder(null);

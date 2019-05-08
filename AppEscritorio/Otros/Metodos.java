@@ -35,6 +35,7 @@ public  class Metodos
 	public GUIPrincipal    guiPrincipal ;
 	public JButton botones    [][]  ;
 	public int x,y,contador,ctd;
+	public ArrayList<String> asientos=new ArrayList<String>();
 	
 	public JPanel crearBotones(Boolean pBtnAgregar,Boolean pBtnEliminar,Boolean pBtnActualizar)
 
@@ -217,7 +218,7 @@ public  class Metodos
 					Integer contador2=ctd;
 					public void actionPerformed(ActionEvent e) 
 					{
-						ptxt.setText(contador2.toString());
+						//ptxt.setText(contador2.toString());
 						if(contador2<=(listaClases.get(1).get(0)))
 						{
 							pClase.setText("Vip");
@@ -230,11 +231,22 @@ public  class Metodos
 						{
 							pClase.setText("Turista");
 						}
+						agregarAsientos(contador2.toString());
+						if (asientos.size()>8)
+						{
+							JOptionPane.showMessageDialog(null, "Numero maximo de pasajeros");
+						}else
+						{
+							ptxt.setText(asientos.toString());
+						}
 					}
 				});
 				ctd++;
 			}
 		}
 	}
-
+	public void agregarAsientos(String pAsiento)
+	{
+		asientos.add(pAsiento);
+	}
 }

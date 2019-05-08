@@ -189,8 +189,8 @@ public class GUIPrincipal extends Ventana
 			}
 		});
 		//Boton Vuelos
-		if (!(botones[0][0] == null)) {
-			botones[0][0].addActionListener(new ActionListener() 
+		if (!(botones[0][2] == null)) {
+			botones[0][2].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -205,8 +205,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Aviones
-		if (!(botones[0][1] == null)) {
-			botones[0][1].addActionListener(new ActionListener() 
+		if (!(botones[0][3] == null)) {
+			botones[0][3].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -219,8 +219,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Rutas
-		if (!(botones[0][2] == null)) {
-			botones[0][2].addActionListener(new ActionListener() 
+		if (!(botones[0][4] == null)) {
+			botones[0][4].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -233,8 +233,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Ofertas
-		if (!(botones[1][4] == null)) {
-			botones[1][4].addActionListener(new ActionListener() 
+		if (!(botones[1][1] == null)) {
+			botones[1][1].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -247,8 +247,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Documentos
-		if (!(botones[1][3] == null)) {
-			botones[1][3].addActionListener(new ActionListener() 
+		if (!(botones[1][0] == null)) {
+			botones[1][0].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -261,8 +261,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Check In
-		if (!(botones[1][2] == null)) {
-			botones[1][2].addActionListener(new ActionListener() 
+		if (!(botones[0][1] == null)) {
+			botones[0][1].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -275,8 +275,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Cancelar
-		if (!(botones[0][3] == null)) {
-			botones[0][3].addActionListener(new ActionListener() 
+		if (!(botones[1][3] == null)) {
+			botones[1][3].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -289,8 +289,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton devolución
-		if (!(botones[0][4] == null)) {
-			botones[0][4].addActionListener(new ActionListener() 
+		if (!(botones[1][4] == null)) {
+			botones[1][4].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -303,8 +303,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}
 		//Boton Reservas
-		if (!(botones[1][1] == null)) {
-			botones[1][1].addActionListener(new ActionListener() 
+		if (!(botones[0][0] == null)) {
+			botones[0][0].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
@@ -317,8 +317,8 @@ public class GUIPrincipal extends Ventana
 			});
 		}		
 		//Boton Reportes
-		if (!(botones[1][0] == null)) {
-			botones[1][0].addActionListener(new ActionListener() 
+		if (!(botones[1][2] == null)) {
+			botones[1][2].addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
 				{
