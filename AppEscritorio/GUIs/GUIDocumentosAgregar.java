@@ -38,7 +38,7 @@ public class GUIDocumentosAgregar extends JDialog {
 		
 		JLabel lbl_ID = new JLabel("ID de documentaci\u00F3n");
 		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_ID.setBounds(36, 32, 103, 14);
+		lbl_ID.setBounds(36, 32, 110, 14);
 		getContentPane().add(lbl_ID);
 		
 		txtFld_ID = new JTextField();

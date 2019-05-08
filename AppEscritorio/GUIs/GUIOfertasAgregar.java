@@ -118,7 +118,7 @@ public class GUIOfertasAgregar extends JDialog {
 		
 		JLabel lbl_ID = new JLabel("ID de oferta");
 		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_ID.setBounds(31, 30, 59, 14);
+		lbl_ID.setBounds(31, 30, 73, 14);
 		getContentPane().add(lbl_ID);
 		
 		txtFld_ID = new JTextField();
@@ -130,7 +130,7 @@ public class GUIOfertasAgregar extends JDialog {
 		
 		JLabel lbl_FechaInicio = new JLabel("Fecha de inicio");
 		lbl_FechaInicio.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_FechaInicio.setBounds(31, 75, 73, 14);
+		lbl_FechaInicio.setBounds(31, 75, 83, 14);
 		getContentPane().add(lbl_FechaInicio);
 		
 		JLabel lbl_FechaFin = new JLabel("Fecha de fin");

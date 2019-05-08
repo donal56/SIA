@@ -101,7 +101,7 @@ public class GUIRutasAgregar extends JDialog {
 		
 		JLabel lbl_ID = new JLabel("ID de ruta");
 		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_ID.setBounds(36, 32, 49, 14);
+		lbl_ID.setBounds(36, 32, 56, 14);
 		getContentPane().add(lbl_ID);
 		
 		txtFld_ID = new JTextField();
@@ -113,7 +113,7 @@ public class GUIRutasAgregar extends JDialog {
 		
 		JLabel lbl_Origen = new JLabel("Origen");
 		lbl_Origen.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_Origen.setBounds(36, 75, 33, 14);
+		lbl_Origen.setBounds(36, 75, 38, 14);
 		getContentPane().add(lbl_Origen);
 		
 		txtFld_Origen = new JTextField();
@@ -125,7 +125,7 @@ public class GUIRutasAgregar extends JDialog {
 		
 		JLabel lbl_Destino = new JLabel("Destino");
 		lbl_Destino.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_Destino.setBounds(36, 117, 38, 14);
+		lbl_Destino.setBounds(36, 117, 45, 14);
 		getContentPane().add(lbl_Destino);
 		
 		txtFld_Destino = new JTextField();
@@ -137,7 +137,7 @@ public class GUIRutasAgregar extends JDialog {
 		
 		JLabel lbl_EstadoRuta = new JLabel("Estado de la ruta");
 		lbl_EstadoRuta.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_EstadoRuta.setBounds(36, 159, 83, 14);
+		lbl_EstadoRuta.setBounds(36, 159, 89, 14);
 		getContentPane().add(lbl_EstadoRuta);
 		
 		txtFld_EstadoRuta = new JTextField();
