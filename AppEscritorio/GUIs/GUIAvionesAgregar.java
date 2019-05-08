@@ -147,7 +147,7 @@ public class GUIAvionesAgregar extends JDialog {
 		
 		JLabel lbl_ID = new JLabel("ID de avi\u00F3n");
 		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_ID.setBounds(30, 30, 55, 14);
+		lbl_ID.setBounds(30, 30, 58, 14);
 		getContentPane().add(lbl_ID);
 		
 		txtFld_ID = new JTextField();
@@ -231,7 +231,7 @@ public class GUIAvionesAgregar extends JDialog {
 		
 		JLabel lbl_AsientosEjecutivo = new JLabel("Asientos de la clase Ejecutivo");
 		lbl_AsientosEjecutivo.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_AsientosEjecutivo.setBounds(10, 219, 144, 14);
+		lbl_AsientosEjecutivo.setBounds(10, 219, 149, 14);
 		pnl_Modelo.add(lbl_AsientosEjecutivo);
 		
 		txtFld_EjecutivoInicio = new JTextField();
@@ -260,7 +260,7 @@ public class GUIAvionesAgregar extends JDialog {
 		
 		JLabel lbl_AsientosTurista = new JLabel("Asientos de la clase Turista");
 		lbl_AsientosTurista.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_AsientosTurista.setBounds(10, 262, 134, 14);
+		lbl_AsientosTurista.setBounds(10, 262, 138, 14);
 		pnl_Modelo.add(lbl_AsientosTurista);
 		
 		txtFld_TuristaInicio = new JTextField();
