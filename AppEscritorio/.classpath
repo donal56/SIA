@@ -39,6 +39,7 @@
 	<classpathentry kind="lib" path="lib/spring-beans-5.1.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-core-5.1.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/iText-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/icepdf-core-6.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/icepdf-viewer-6.2.2.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

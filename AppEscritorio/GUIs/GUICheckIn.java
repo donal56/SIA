@@ -6,14 +6,21 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,14 +28,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.icepdf.ri.common.ComponentKeyBinding;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+
 import Otros.Conexion;
 import net.miginfocom.swing.MigLayout;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class GUICheckIn 
 {
@@ -80,20 +85,38 @@ public class GUICheckIn
 							query = "UPDATE boletos b SET b.status = 1 WHERE idBoleto = '" + idBoleto + "'";
 							Connection conn = new Conexion().getConnection();
 							conn.createStatement().execute(query);
-							//Crear el objeto JasperReport cargando el archivo de reporte .jasper
-							JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/PaseParaAbordar.jasper"));
-							//Crear un HashMap para ingresar el parametro ID de boleto
-							HashMap<String, Object> parametro = new HashMap<String, Object>();
-							parametro.put("ID", idBoleto);
-							//Crear el objeto JasperPrint que basicamente ya es el pase para abordar, dandole el reporte, el parametro y una conexion a BD
-							JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, conn);
-							//Crear un JasperViewer para ver el pdf, pero el JasperViewer no es modal asi que se adapta a un JDialog
-							JasperViewer jv = new JasperViewer(doc, false);
-							JDialog dialog = new JDialog((JFrame)null, true);
-							dialog.setContentPane(jv.getContentPane());
-							dialog.setSize(jv.getSize());
-							dialog.setTitle("Pase para abordar");
-							dialog.setVisible(true);
+							
+							//send request to generate pdf
+							URL pdf = sendRequestPDF(idBoleto);
+			
+							// build a controller
+							SwingController controller = new SwingController();
+
+							// Build a SwingViewFactory configured with the controller
+							SwingViewBuilder factory = new SwingViewBuilder(controller);
+
+							// Use the factory to build a JPanel that is pre-configured
+							//with a complete, active Viewer UI.
+							JPanel viewerComponentPanel = factory.buildViewerPanel();
+
+							// add copy keyboard command
+							ComponentKeyBinding.install(controller, viewerComponentPanel);
+
+							// add interactive mouse link annotation support via callback
+							controller.getDocumentViewController().setAnnotationCallback(
+							      new org.icepdf.ri.common.MyAnnotationCallback(
+							             controller.getDocumentViewController()));
+
+							// Create a JFrame to display the panel in
+							JFrame window = new JFrame("PASE DE ABORDAR PDF");
+							window.getContentPane().add(viewerComponentPanel);
+							window.pack();
+							window.setVisible(true);
+
+							// Open a PDF document to view
+
+							controller.openDocument(pdf);
+							
 							//Cerrar las conexiones
 							if (conn != null) {
 					        	conn.close();
@@ -108,10 +131,11 @@ public class GUICheckIn
 								"Check-in", JOptionPane.INFORMATION_MESSAGE);
 					}
 					con.cerrarConexion();
-				} catch (JRException | SQLException ex) {					
+				} catch (SQLException ex) {					
 					ex.printStackTrace();
 				}
 			}
+
 		});
 		
 		lblTexto.setOpaque    (true);
@@ -136,5 +160,56 @@ public class GUICheckIn
 		pnlGeneral.add(lblTitulo ,"cell 0 1"    );
 		pnlGeneral.add(pnlCentral,"cell 1 1 0 0");
 		return pnlGeneral;
+	}
+	
+	private URL sendRequestPDF(String idBoleto) {
+		URL pdf = null;
+		try {
+			URL url = new URL("https://aeroalpes.tk/controllers/CntrlCheckin.php"); // URL to your application
+			Map<String,Object> params = new LinkedHashMap<>();
+			params.put("func", 1); // All parameters, also easy
+			params.put("numBoleto", idBoleto);
+	
+			StringBuilder postData = new StringBuilder();
+			// POST as urlencoded is basically key-value pairs, as with GET
+			// This creates key=value&key=value&... pairs
+			for (Map.Entry<String,Object> param : params.entrySet()) {
+			     if (postData.length() != 0) postData.append('&');
+			     postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+			     postData.append('=');
+			     postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+			}
+
+		    // Convert string to byte array, as it should be sent
+		    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+		    // Connect, easy
+		    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		    // Tell server that this is POST and in which format is the data
+		    conn.setRequestMethod("POST");
+		    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+		    conn.setDoOutput(true);
+		    conn.getOutputStream().write(postDataBytes);
+
+		    // This gets the output from your server
+		    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		    String path="";
+		    for (int c; (c = in.read()) >= 0;)
+		        path+=(char)c;
+
+		    if(path.equals("send to desktop")) {
+		    	//sia2019.heliohost doesn't force the unsupported https protocol
+		    	pdf = new URL("http://sia2019.heliohost.org/tcpdf/pdf/"+idBoleto+".pdf");
+		    }else {
+		    	throw new IOException(" Server not sent the file, try again!");
+		    }
+		    	
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error al generar el boleto \n"+e, 
+					"ERROR", JOptionPane.INFORMATION_MESSAGE);
+		}
+		return pdf;
+		
 	}
 }
