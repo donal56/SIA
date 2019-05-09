@@ -199,7 +199,7 @@ public class GUIVuelosAgregar extends JDialog {
 		
 		JLabel lbl_ID = new JLabel("ID de vuelo");
 		lbl_ID.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_ID.setBounds(28, 28, 55, 14);
+		lbl_ID.setBounds(28, 28, 58, 14);
 		getContentPane().add(lbl_ID);
 		
 		JLabel lbl_Fecha = new JLabel("Fecha");
@@ -209,12 +209,12 @@ public class GUIVuelosAgregar extends JDialog {
 		
 		JLabel lbl_HoraSalida = new JLabel("Hora de salida");
 		lbl_HoraSalida.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_HoraSalida.setBounds(28, 110, 71, 14);
+		lbl_HoraSalida.setBounds(28, 110, 74, 14);
 		getContentPane().add(lbl_HoraSalida);
 		
 		JLabel lbl_HoraLlegada = new JLabel("Hora de llegada");
 		lbl_HoraLlegada.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_HoraLlegada.setBounds(28, 156, 78, 14);
+		lbl_HoraLlegada.setBounds(28, 156, 82, 14);
 		getContentPane().add(lbl_HoraLlegada);
 		
 		txtFld_HoraLlegadaHH = new JTextField();
@@ -272,12 +272,12 @@ public class GUIVuelosAgregar extends JDialog {
 		
 		JLabel lbl_PrecioTurista = new JLabel("Precio de clase Turista");
 		lbl_PrecioTurista.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_PrecioTurista.setBounds(228, 29, 110, 14);
+		lbl_PrecioTurista.setBounds(228, 29, 120, 14);
 		getContentPane().add(lbl_PrecioTurista);
 		
 		JLabel lbl_PrecioEjecutivo = new JLabel("Precio de clase Ejecutivo");
 		lbl_PrecioEjecutivo.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lbl_PrecioEjecutivo.setBounds(228, 70, 120, 14);
+		lbl_PrecioEjecutivo.setBounds(228, 70, 124, 14);
 		getContentPane().add(lbl_PrecioEjecutivo);
 		
 		JLabel lbl_PrecioVIP = new JLabel("Precio de clase VIP");

@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 
 import com.jtattoo.plaf.smart.SmartLookAndFeel;
 
-import GUIs.GUIPrincipal;
+import GUIs.GUILogin;
 
 public class MPrincipal {
 
@@ -24,13 +24,10 @@ public class MPrincipal {
 		 try{
 	          UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 			 //UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-
-	        }catch(Exception ex){
-	        }
-		  new GUIPrincipal().setVisible(true);
-		
-		
-		 // new GUIPrincipal();
+	     } catch(Exception ex) {
+	    	 ex.printStackTrace();
+	     }
+		  new GUILogin().setVisible(true);
 
 	}
 

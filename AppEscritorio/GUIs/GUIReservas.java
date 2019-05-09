@@ -162,7 +162,7 @@ public class GUIReservas
 						{
 							datos[i] = (String)tabla.getValueAt(indiceVuelo, i);
 							titulos[i]=(String)tabla.getColumnName(i);
-							guiAsientos =new GUIAsientos(datos,titulos);
+							guiAsientos =new GUIAsientos(datos,titulos,pnlCentral);
 						}
 					}
 					else
@@ -174,6 +174,8 @@ public class GUIReservas
 					pnlCentral.revalidate();
 					
 				} catch (Exception e2) {
+					pnlCentral.removeAll();
+					pnlCentral.add(crear(pnlCentral));
 					pnlCentral.revalidate();
 					// TODO: handle exception
 				}
