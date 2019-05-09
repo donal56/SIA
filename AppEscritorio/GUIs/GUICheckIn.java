@@ -71,6 +71,8 @@ public class GUICheckIn
 		//Agregar el ActionListener al boton Buscar
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				String idBoleto = txtBoleto.getText();
 				String query = "SELECT status FROM boletos WHERE idBoleto = '" + idBoleto + "'";
 				Conexion con = new Conexion();
@@ -81,6 +83,7 @@ public class GUICheckIn
 						status.next();
 						String valor = status.getString(1);
 						if (valor.equals("0")) {
+							
 							//Este query se debera ejecutar sin usar el objeto Conexion porque ese manda un mensaje de confirmacion y no queremos eso
 							query = "UPDATE boletos b SET b.status = 1 WHERE idBoleto = '" + idBoleto + "'";
 							Connection conn = new Conexion().getConnection();
