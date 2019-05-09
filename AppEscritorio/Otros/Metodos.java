@@ -247,6 +247,9 @@ public  class Metodos
 	}
 	public void agregarAsientos(String pAsiento)
 	{
-		asientos.add(pAsiento);
+		if(!asientos.contains(pAsiento))
+		{
+			asientos.add(pAsiento);
+		}
 	}
 }
