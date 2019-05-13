@@ -325,16 +325,18 @@ public class GUIPrincipal extends Ventana
 					String ID = JOptionPane.showInputDialog(null, "Introduzca el ID del vuelo", 
 							"Reporte de boletos", JOptionPane.INFORMATION_MESSAGE);
 					try {
-						JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/ReporteBoletos.jasper"));					
-						HashMap<String, Object> parametro = new HashMap<String, Object>();
-						parametro.put("ID", ID);
-						JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, new Otros.Conexion().getConnection());					
-						JasperViewer jv = new JasperViewer(doc, false);
-						JDialog dialog = new JDialog((JFrame)null, true);
-						dialog.setContentPane(jv.getContentPane());
-						dialog.setSize(jv.getSize());
-						dialog.setTitle("Pase para abordar");
-						dialog.setVisible(true);	
+						if (ID != null) {
+							JasperReport reporte = (JasperReport) JRLoader.loadObject(GUICheckIn.class.getResource("/Otros/ReporteBoletos.jasper"));					
+							HashMap<String, Object> parametro = new HashMap<String, Object>();
+							parametro.put("ID", ID);
+							JasperPrint doc = JasperFillManager.fillReport(reporte, parametro, new Otros.Conexion().getConnection());					
+							JasperViewer jv = new JasperViewer(doc, false);
+							JDialog dialog = new JDialog((JFrame)null, true);
+							dialog.setContentPane(jv.getContentPane());
+							dialog.setSize(jv.getSize());
+							dialog.setTitle("Reporte de boletos vendidos para el vuelo " + ID);
+							dialog.setVisible(true);
+						}							
 					} catch (JRException ex) {
 						ex.printStackTrace();
 					}
